@@ -1,2 +1,10 @@
 .vercel
 .env*.local
+.DS_Store
+
+# PDFs gerados (pesados demais para Git)
+relatorios-apm/
+
+# Controle local
+controle-disparo.xlsx
+controle-disparo.csv

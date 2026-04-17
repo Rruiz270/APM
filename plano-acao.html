@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Ação — APM + Instituto i10 | Consultoria FUNDEB 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --apm-teal: #0D7377;
+  --apm-teal-dark: #0A5C5F;
+  --apm-teal-light: #11998E;
+  --apm-green: #0D7377;
+  --apm-green-light: #11998E;
+  --apm-green-bg: rgba(13,115,119,0.06);
+  --i10-blue: #0A2463;
+  --i10-cyan: #00B4D8;
+  --i10-green: #00E5A0;
+  --bg: #FAFBFC;
+  --card: #fff;
+  --border: #E2E8F0;
+  --text: #1A202C;
+  --text2: #4A5568;
+  --text3: #718096;
+  --red: #E53E3E;
+  --orange: #DD6B20;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+.container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #0A5C5F 0%, #0D7377 40%, #11998E 100%);
+  color: #fff; padding: 50px 0 60px; position: relative; overflow: hidden;
+}
+.header::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-conic-gradient(rgba(255,255,255,0.03) 0% 25%, transparent 0% 50%) 0 0 / 30px 30px;
+}
+.header-logos {
+  display: flex; align-items: center; gap: 20px; margin-bottom: 30px; position: relative;
+}
+.header-logos img { height: 60px; border-radius: 8px; background: #fff; padding: 6px; }
+.header-logos .divider { width: 2px; height: 40px; background: rgba(255,255,255,0.3); }
+.header-logos .partner-text { font-size: 0.85rem; opacity: 0.8; line-height: 1.4; }
+.header-logos .partner-text b { display: block; font-size: 1rem; opacity: 1; }
+.header h1 { font-family: 'Source Serif 4', serif; font-size: 2.2rem; font-weight: 700; margin-bottom: 10px; position: relative; line-height: 1.3; }
+.header .subtitle { font-size: 1.1rem; opacity: 0.85; position: relative; max-width: 700px; }
+.header .doc-info {
+  margin-top: 24px; display: flex; gap: 30px; flex-wrap: wrap; position: relative;
+  font-size: 0.85rem; opacity: 0.7;
+}
+.header .doc-info b { opacity: 1; }
+
+/* Sections */
+section { padding: 40px 0; }
+h2 {
+  font-family: 'Source Serif 4', serif; font-size: 1.5rem; color: var(--apm-green);
+  margin-bottom: 20px; padding-bottom: 10px;
+  border-bottom: 3px solid; border-image: linear-gradient(90deg, var(--apm-teal), var(--apm-teal-light)) 1;
+}
+h3 { font-size: 1.05rem; color: var(--i10-blue); margin: 20px 0 10px; font-weight: 600; }
+
+/* Cards */
+.phase-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 28px; margin-bottom: 20px; position: relative; overflow: hidden;
+}
+.phase-card::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%;
+}
+.phase-card.phase1::before { background: var(--apm-green); }
+.phase-card.phase2::before { background: var(--i10-cyan); }
+.phase-card.phase3::before { background: var(--orange); }
+.phase-card .phase-header {
+  display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;
+}
+.phase-card .phase-title { font-size: 1.15rem; font-weight: 700; color: var(--i10-blue); }
+.phase-card .phase-date {
+  display: inline-block; padding: 4px 14px; border-radius: 50px; font-size: 0.8rem; font-weight: 600;
+}
+.phase1 .phase-date { background: rgba(13,115,119,0.1); color: var(--apm-teal); }
+.phase2 .phase-date { background: rgba(0,180,216,0.1); color: var(--i10-cyan); }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 30px; }
+.timeline::before {
+  content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(to bottom, var(--apm-teal), var(--apm-teal-light));
+}
+.timeline-item { position: relative; margin-bottom: 24px; }
+.timeline-item::before {
+  content: ''; position: absolute; left: -26px; top: 6px; width: 12px; height: 12px;
+  border-radius: 50%; border: 2px solid var(--apm-green); background: #fff;
+}
+.timeline-item.done::before { background: var(--apm-green); }
+.timeline-item .tl-date { font-size: 0.8rem; color: var(--apm-green); font-weight: 600; margin-bottom: 2px; }
+.timeline-item .tl-title { font-weight: 600; margin-bottom: 4px; }
+.timeline-item .tl-desc { font-size: 0.88rem; color: var(--text2); }
+
+/* Stats */
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 20px 0; }
+.stat-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+  padding: 20px; text-align: center;
+}
+.stat-card .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--apm-green); }
+.stat-card .stat-label { font-size: 0.82rem; color: var(--text3); margin-top: 4px; }
+
+/* Table */
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.88rem; }
+th { background: var(--apm-green); color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+tr:hover { background: var(--apm-green-bg); }
+
+/* Checklist */
+.checklist { list-style: none; }
+.checklist li { padding: 8px 0; border-bottom: 1px solid #f7fafc; font-size: 0.92rem; display: flex; align-items: flex-start; gap: 10px; }
+.checklist li::before { content: '☐'; color: var(--apm-green); font-size: 1.1rem; flex-shrink: 0; }
+.checklist li.done::before { content: '✓'; }
+
+/* Org Chart */
+.org-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+.org-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+}
+.org-card .org-role { font-weight: 700; color: var(--i10-blue); margin-bottom: 4px; }
+.org-card .org-who { color: var(--text2); font-size: 0.88rem; }
+.org-card .org-tasks { margin-top: 8px; font-size: 0.82rem; color: var(--text3); }
+
+/* Alert */
+.alert {
+  background: #FFF5F5; border: 1px solid #FEB2B2; border-radius: 10px;
+  padding: 16px; margin: 16px 0; font-size: 0.9rem;
+}
+.alert b { color: var(--red); }
+.alert.info { background: rgba(0,180,216,0.06); border-color: rgba(0,180,216,0.3); }
+.alert.info b { color: var(--i10-cyan); }
+.alert.success { background: var(--apm-green-bg); border-color: rgba(13,115,119,0.3); }
+.alert.success b { color: var(--apm-green); }
+
+/* Message Template */
+.msg-template {
+  background: #F7FAFC; border: 1px solid var(--border); border-radius: 10px;
+  padding: 20px; margin: 16px 0; font-size: 0.88rem; white-space: pre-line;
+}
+.msg-template .msg-header {
+  font-weight: 700; color: var(--i10-blue); margin-bottom: 10px; font-size: 0.95rem;
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* Footer */
+.footer {
+  background: linear-gradient(135deg, #0A5C5F 0%, #0D7377 50%, #11998E 100%); color: #fff; padding: 30px 0; text-align: center; font-size: 0.85rem;
+  margin-top: 40px;
+}
+.footer a { color: rgba(255,255,255,0.8); }
+
+/* Print */
+@media print {
+  .header { padding: 30px 0; }
+  section { page-break-inside: avoid; }
+  .phase-card { page-break-inside: avoid; }
+}
+@media (max-width: 768px) {
+  .header h1 { font-size: 1.5rem; }
+  .org-grid { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="container">
+    <div class="header-logos">
+      <img src="https://apaulista.org.br/wp-content/uploads/2023/10/logo.png" alt="APM">
+      <div class="divider"></div>
+      <div class="partner-text">
+        <b>Parceria Institucional</b>
+        APM + Instituto i10
+      </div>
+    </div>
+    <h1>Plano de A&ccedil;&atilde;o: Consultoria FUNDEB 2026<br>para os 645 Munic&iacute;pios de S&atilde;o Paulo</h1>
+    <p class="subtitle">Programa de mobiliza&ccedil;&atilde;o, diagn&oacute;stico e consultoria em parceria entre a Associa&ccedil;&atilde;o Paulista de Munic&iacute;pios (APM) e o Instituto i10 para maximizar a capta&ccedil;&atilde;o de recursos FUNDEB.</p>
+    <div class="doc-info">
+      <span><b>Vers&atilde;o:</b> 1.0</span>
+      <span><b>Data:</b> Abril 2026</span>
+      <span><b>Classifica&ccedil;&atilde;o:</b> Confidencial — Parceiros</span>
+    </div>
+  </div>
+</div>
+
+<!-- CONTEXTO -->
+<section>
+  <div class="container">
+    <h2>1. Contexto e Oportunidade</h2>
+    <p style="margin-bottom:16px">O FUNDEB 2026 distribui recursos bilion&aacute;rios com base no Censo Escolar e condicionalidades MEC. A an&aacute;lise do Instituto i10 identificou que os 645 munic&iacute;pios de S&atilde;o Paulo est&atilde;o deixando de captar <b>R$ 13 bilh&otilde;es</b> em recursos dispon&iacute;veis por falhas de gest&atilde;o, registro e compliance.</p>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num">R$ 13 bi</div>
+        <div class="stat-label">Potencial n&atilde;o captado em SP</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">645</div>
+        <div class="stat-label">Munic&iacute;pios a serem atendidos</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">42%</div>
+        <div class="stat-label">Ganho mediano identificado</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Alavancas de capta&ccedil;&atilde;o mapeadas</div>
+      </div>
+    </div>
+
+    <h3>As 6 Alavancas de Capta&ccedil;&atilde;o</h3>
+    <table>
+      <thead>
+        <tr><th>Alavanca</th><th>Descri&ccedil;&atilde;o</th><th>Impacto</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><b>T1 — Expans&atilde;o VAAF</b></td><td>Abertura de categorias de matr&iacute;cula n&atilde;o captadas (EJA, conveniadas, etc.)</td><td style="color:var(--apm-green);font-weight:600">Alto</td></tr>
+        <tr><td><b>T2 — Convers&atilde;o Integral</b></td><td>Migra&ccedil;&atilde;o de alunos de jornada parcial para integral (+fator pondera&ccedil;&atilde;o)</td><td style="color:var(--apm-green);font-weight:600">Alto</td></tr>
+        <tr><td><b>T3 — AEE Dupla Matr&iacute;cula</b></td><td>Registro de AEE para alunos de Ed. Especial (dupla contagem FUNDEB)</td><td style="color:var(--apm-green);font-weight:600">Alto</td></tr>
+        <tr><td><b>T4 — Reclassifica&ccedil;&atilde;o Localidade</b></td><td>Fator Campo (+15%) e Ind&iacute;gena/Quilombola (+40%)</td><td style="color:var(--orange);font-weight:600">M&eacute;dio</td></tr>
+        <tr><td><b>T5 — VAAR Federal</b></td><td>Compliance das 5 condicionalidades MEC para receber complementa&ccedil;&atilde;o federal</td><td style="color:var(--red);font-weight:600">Cr&iacute;tico</td></tr>
+        <tr><td><b>T6 — EC 135 + BNCC</b></td><td>4% FUNDEB obrigat&oacute;rio para tempo integral + BNCC Computa&ccedil;&atilde;o</td><td style="color:var(--apm-green);font-weight:600">Alto</td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert info">
+      <b>Oportunidade &uacute;nica:</b> A parceria APM + i10 permite atingir todos os 645 munic&iacute;pios de SP de forma coordenada, com credibilidade institucional da APM e tecnologia/dados do Instituto i10.
+    </div>
+  </div>
+</section>
+
+<!-- DATAS CRITICAS -->
+<section style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <h2>2. Datas Cr&iacute;ticas e Cronograma</h2>
+
+    <div class="alert">
+      <b>ATEN&Ccedil;&Atilde;O:</b> O Censo Escolar 2026 (27 de maio) &eacute; a data mais cr&iacute;tica. Todas as matr&iacute;culas registradas at&eacute; essa data determinam a distribui&ccedil;&atilde;o de recursos FUNDEB para o exerc&iacute;cio.
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item done">
+        <div class="tl-date">Abril 2026</div>
+        <div class="tl-title">Formaliza&ccedil;&atilde;o da Parceria APM + i10</div>
+        <div class="tl-desc">Assinatura do acordo de coopera&ccedil;&atilde;o, defini&ccedil;&atilde;o de escopo, prepara&ccedil;&atilde;o de materiais.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">21-25 de Abril 2026</div>
+        <div class="tl-title">Disparo em Massa — Fase 1</div>
+        <div class="tl-desc">Envio de e-mail oficial (APM) + WhatsApp com PDF individualizado para todos os 645 prefeitos e secret&aacute;rios de educa&ccedil;&atilde;o.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">22 Abril — 26 Maio 2026</div>
+        <div class="tl-title">Mobiliza&ccedil;&atilde;o Ativa</div>
+        <div class="tl-desc">Ex-secret&aacute;rio de Educa&ccedil;&atilde;o de Ribeir&atilde;o Preto + 1 pessoa ligando para munic&iacute;pios sem resposta. Aceites repassados para equipe i10 para venda/consultoria.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">Maio 2026</div>
+        <div class="tl-title">Encontros Presenciais — Cons&oacute;rcios Municipais APM</div>
+        <div class="tl-desc">Participa&ccedil;&atilde;o nos encontros regionais dos cons&oacute;rcios da APM para apresenta&ccedil;&atilde;o presencial.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date" style="color:var(--red);font-weight:800">27 de Maio 2026 — CENSO ESCOLAR</div>
+        <div class="tl-title">Data de Refer&ecirc;ncia do Censo Escolar</div>
+        <div class="tl-desc">Deadline cr&iacute;tico. Todas as matr&iacute;culas devem estar registradas. Munic&iacute;pios com consultoria i10 j&aacute; ter&atilde;o a&ccedil;&otilde;es implementadas.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">Junho — Julho 2026</div>
+        <div class="tl-title">P&oacute;s-Censo: Implementa&ccedil;&atilde;o cont&iacute;nua + prepara&ccedil;&atilde;o Fase 2</div>
+        <div class="tl-desc">Suporte jur&iacute;dico, compliance VAAR, prepara&ccedil;&atilde;o BNCC Computa&ccedil;&atilde;o para munic&iacute;pios aderentes.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">Julho — Agosto 2026</div>
+        <div class="tl-title">Disparo Fase 2 — BNCC Computa&ccedil;&atilde;o</div>
+        <div class="tl-desc">Nova onda de comunica&ccedil;&atilde;o focada em munic&iacute;pios que n&atilde;o aderiram na Fase 1. Mensagem: "J&aacute; perderam a 1&ordf; fase — n&atilde;o percam R$ X da BNCC Computa&ccedil;&atilde;o 2027".</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date" style="color:var(--i10-cyan);font-weight:800">Agosto 2026 — BNCC COMPUTA&Ccedil;&Atilde;O</div>
+        <div class="tl-title">Prazo BNCC Computa&ccedil;&atilde;o</div>
+        <div class="tl-desc">Deadline para implementa&ccedil;&atilde;o da BNCC Computa&ccedil;&atilde;o nas redes municipais. Consultoria i10 garante compliance.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">Setembro 2026 em diante</div>
+        <div class="tl-title">Acompanhamento Cont&iacute;nuo</div>
+        <div class="tl-desc">Monitoramento de indicadores, prepara&ccedil;&atilde;o para Censo 2027, expans&atilde;o para outros estados.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FASE 1 -->
+<section>
+  <div class="container">
+    <h2>3. Fase 1 — FUNDEB + Censo Escolar (at&eacute; 27/05)</h2>
+
+    <div class="phase-card phase1">
+      <div class="phase-header">
+        <div class="phase-title">3.1 Comunica&ccedil;&atilde;o e Disparo em Massa</div>
+        <span class="phase-date">Semana 21-25 Abril</span>
+      </div>
+      <p style="margin-bottom:12px;color:var(--text2)">Envio coordenado para os <b>645 munic&iacute;pios</b> de SP, atingindo tanto prefeitos quanto secret&aacute;rios de educa&ccedil;&atilde;o.</p>
+
+      <h3>Canais de comunica&ccedil;&atilde;o</h3>
+      <table>
+        <thead>
+          <tr><th>Canal</th><th>Destinat&aacute;rios</th><th>Conte&uacute;do</th><th>Respons&aacute;vel</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>E-mail Oficial</b></td>
+            <td>645 Prefeitos + 645 Secret&aacute;rios de Educa&ccedil;&atilde;o</td>
+            <td>Comunica&ccedil;&atilde;o formal APM com diagn&oacute;stico + link da LP + PDF resumo</td>
+            <td>APM</td>
+          </tr>
+          <tr>
+            <td><b>WhatsApp Individual</b></td>
+            <td>645 Prefeitos e/ou Secret&aacute;rios</td>
+            <td>Mensagem personalizada com PDF do munic&iacute;pio + link da LP</td>
+            <td>Fred (equipe APM)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Materiais de apoio</h3>
+      <ul class="checklist">
+        <li>PDF resumo individualizado por munic&iacute;pio (645 PDFs) — white-label APM + i10</li>
+        <li>Landing Page com busca por munic&iacute;pio (white-label APM + i10)</li>
+        <li>Modelo de e-mail oficial para prefeitos</li>
+        <li>Modelo de e-mail oficial para secret&aacute;rios de educa&ccedil;&atilde;o</li>
+        <li>Script de mensagem WhatsApp para Fred</li>
+        <li>Apresenta&ccedil;&atilde;o para encontros presenciais (cons&oacute;rcios APM)</li>
+      </ul>
+    </div>
+
+    <div class="phase-card phase1">
+      <div class="phase-header">
+        <div class="phase-title">3.2 Mobiliza&ccedil;&atilde;o Ativa</div>
+        <span class="phase-date">22 Abril — 26 Maio</span>
+      </div>
+      <p style="margin-bottom:16px;color:var(--text2)">Trabalho ativo de contato telef&ocirc;nico para munic&iacute;pios que n&atilde;o responderam ao disparo inicial.</p>
+
+      <div class="org-grid">
+        <div class="org-card">
+          <div class="org-role">Mobilizador S&ecirc;nior</div>
+          <div class="org-who">Ex-Secret&aacute;rio de Educa&ccedil;&atilde;o de Ribeir&atilde;o Preto</div>
+          <div class="org-tasks">
+            &#8226; Liga&ccedil;&otilde;es para secret&aacute;rios de educa&ccedil;&atilde;o<br>
+            &#8226; Credibilidade t&eacute;cnica e institucional<br>
+            &#8226; Foco nos munic&iacute;pios de maior potencial
+          </div>
+        </div>
+        <div class="org-card">
+          <div class="org-role">Mobilizador Operacional</div>
+          <div class="org-who">1 pessoa dedicada (equipe APM/i10)</div>
+          <div class="org-tasks">
+            &#8226; Liga&ccedil;&otilde;es para munic&iacute;pios sem resposta<br>
+            &#8226; Follow-up sistem&aacute;tico<br>
+            &#8226; Registro de contatos no CRM/planilha
+          </div>
+        </div>
+      </div>
+
+      <h3>Fluxo de Convers&atilde;o</h3>
+      <div style="background:#F7FAFC;border-radius:10px;padding:20px;margin:12px 0;text-align:center;font-size:0.92rem">
+        <span style="background:var(--apm-teal);color:#fff;padding:6px 14px;border-radius:50px;font-weight:600">Disparo (e-mail + WhatsApp)</span>
+        <span style="margin:0 12px;color:var(--text3)">&rarr;</span>
+        <span style="background:var(--orange);color:#fff;padding:6px 14px;border-radius:50px;font-weight:600">Mobiliza&ccedil;&atilde;o (liga&ccedil;&otilde;es)</span>
+        <span style="margin:0 12px;color:var(--text3)">&rarr;</span>
+        <span style="background:var(--i10-blue);color:#fff;padding:6px 14px;border-radius:50px;font-weight:600">Aceite do Prefeito/Secret&aacute;rio</span>
+        <span style="margin:0 12px;color:var(--text3)">&rarr;</span>
+        <span style="background:var(--apm-teal-light);color:#fff;padding:6px 14px;border-radius:50px;font-weight:600">Repasse para i10 (Venda)</span>
+        <span style="margin:0 12px;color:var(--text3)">&rarr;</span>
+        <span style="background:var(--i10-green);color:var(--i10-blue);padding:6px 14px;border-radius:50px;font-weight:700">Consultoria ativa</span>
+      </div>
+
+      <div class="alert success">
+        <b>Importante:</b> A consultoria i10 come&ccedil;a <u>antes</u> do contrato assinado para munic&iacute;pios que derem o aceite. Isso garante a&ccedil;&atilde;o imediata antes do Censo (27/05).
+      </div>
+    </div>
+
+    <div class="phase-card phase1">
+      <div class="phase-header">
+        <div class="phase-title">3.3 Encontros Presenciais — Cons&oacute;rcios APM</div>
+        <span class="phase-date">Maio 2026</span>
+      </div>
+      <p style="color:var(--text2)">Participa&ccedil;&atilde;o nos encontros regionais dos cons&oacute;rcios municipais organizados pela APM. Apresenta&ccedil;&atilde;o do diagn&oacute;stico FUNDEB e da consultoria i10 para grupos de prefeitos e secret&aacute;rios.</p>
+      <ul class="checklist" style="margin-top:12px">
+        <li>Identifica&ccedil;&atilde;o dos pr&oacute;ximos encontros de cons&oacute;rcios da APM</li>
+        <li>Prepara&ccedil;&atilde;o de apresenta&ccedil;&atilde;o espec&iacute;fica por regi&atilde;o</li>
+        <li>Material impresso com dados dos munic&iacute;pios da regi&atilde;o</li>
+        <li>Coleta de contatos e agendamento de reuni&otilde;es individuais</li>
+      </ul>
+    </div>
+
+    <div class="phase-card phase1">
+      <div class="phase-header">
+        <div class="phase-title">3.4 Consultoria i10 — O que entregamos</div>
+        <span class="phase-date">Cont&iacute;nuo</span>
+      </div>
+      <p style="margin-bottom:12px;color:var(--text2)">Para cada munic&iacute;pio que aderir, o Instituto i10 entrega:</p>
+      <table>
+        <thead>
+          <tr><th>Entrega</th><th>Descri&ccedil;&atilde;o</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>Diagn&oacute;stico Completo</b></td><td>Relat&oacute;rio detalhado com as 6 alavancas, potencial total e plano de a&ccedil;&atilde;o personalizado</td></tr>
+          <tr><td><b>Suporte Jur&iacute;dico</b></td><td>Orienta&ccedil;&atilde;o sobre compliance VAAR, formaliza&ccedil;&atilde;o de conv&ecirc;nios, resolu&ccedil;&otilde;es CME</td></tr>
+          <tr><td><b>Implementa&ccedil;&atilde;o Assistida</b></td><td>Acompanhamento na execu&ccedil;&atilde;o das a&ccedil;&otilde;es (registro no Censo, abertura de turmas, AEE)</td></tr>
+          <tr><td><b>Plataforma de Intelig&ecirc;ncia</b></td><td>Acesso ao sistema BNCC-CAPTACAO para monitoramento cont&iacute;nuo</td></tr>
+          <tr><td><b>BNCC Computa&ccedil;&atilde;o</b></td><td>Consultoria para implementa&ccedil;&atilde;o do curr&iacute;culo de computa&ccedil;&atilde;o (obrigat&oacute;rio 2026)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FASE 2 -->
+<section style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <h2>4. Fase 2 — BNCC Computa&ccedil;&atilde;o (Julho-Agosto 2026)</h2>
+
+    <div class="phase-card phase2">
+      <div class="phase-header">
+        <div class="phase-title">4.1 Segunda Onda de Comunica&ccedil;&atilde;o</div>
+        <span class="phase-date">Julho 2026</span>
+      </div>
+      <p style="margin-bottom:16px;color:var(--text2)">Foco nos munic&iacute;pios que <b>n&atilde;o aderiram na Fase 1</b>. Mensagem de urg&ecirc;ncia: j&aacute; perderam a janela do Censo, mas ainda podem captar via BNCC Computa&ccedil;&atilde;o.</p>
+
+      <h3>Estrat&eacute;gia de Comunica&ccedil;&atilde;o Fase 2</h3>
+      <table>
+        <thead>
+          <tr><th>Elemento</th><th>Descri&ccedil;&atilde;o</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>Tom da mensagem</b></td><td>"J&aacute; perderam a 1&ordf; fase do FUNDEB. N&atilde;o percam R$ XXX da BNCC Computa&ccedil;&atilde;o para 2027."</td></tr>
+          <tr><td><b>Canais</b></td><td>Mesmo processo: e-mail APM + WhatsApp Fred + liga&ccedil;&otilde;es ativas</td></tr>
+          <tr><td><b>Diferencial</b></td><td>Incluir dados de quanto o munic&iacute;pio j&aacute; perdeu (Fase 1) + quanto pode perder (BNCC)</td></tr>
+          <tr><td><b>Encontros</b></td><td>Continuar participa&ccedil;&atilde;o nos cons&oacute;rcios APM com foco BNCC</td></tr>
+        </tbody>
+      </table>
+
+      <div class="alert">
+        <b>Argumento chave:</b> BNCC Computa&ccedil;&atilde;o &eacute; obrigat&oacute;ria para 2026. Munic&iacute;pios sem implementa&ccedil;&atilde;o perdem acesso a recursos espec&iacute;ficos em 2027 e ficam em d&eacute;bito com o MEC.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESPONSABILIDADES -->
+<section>
+  <div class="container">
+    <h2>5. Divis&atilde;o de Responsabilidades</h2>
+
+    <table>
+      <thead>
+        <tr><th>Atividade</th><th>APM</th><th>Instituto i10</th><th>Fred</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>E-mail oficial para prefeitos/secret&aacute;rios</td><td style="text-align:center;color:var(--apm-green);font-weight:700">&#10003;</td><td></td><td></td></tr>
+        <tr><td>Landing Page white-label</td><td></td><td style="text-align:center;color:var(--i10-cyan);font-weight:700">&#10003;</td><td></td></tr>
+        <tr><td>PDFs individualizados por munic&iacute;pio</td><td></td><td style="text-align:center;color:var(--i10-cyan);font-weight:700">&#10003;</td><td></td></tr>
+        <tr><td>WhatsApp individual com PDFs</td><td></td><td></td><td style="text-align:center;font-weight:700">&#10003;</td></tr>
+        <tr><td>Liga&ccedil;&otilde;es de mobiliza&ccedil;&atilde;o</td><td style="text-align:center;color:var(--apm-green);font-weight:700">&#10003;</td><td></td><td></td></tr>
+        <tr><td>Encontros presenciais (cons&oacute;rcios)</td><td style="text-align:center;color:var(--apm-green);font-weight:700">&#10003;</td><td style="text-align:center;color:var(--i10-cyan);font-weight:700">&#10003;</td><td></td></tr>
+        <tr><td>Venda da consultoria (ap&oacute;s aceite)</td><td></td><td style="text-align:center;color:var(--i10-cyan);font-weight:700">&#10003;</td><td></td></tr>
+        <tr><td>Execu&ccedil;&atilde;o da consultoria FUNDEB</td><td></td><td style="text-align:center;color:var(--i10-cyan);font-weight:700">&#10003;</td><td></td></tr>
+        <tr><td>Suporte jur&iacute;dico</td><td></td><td style="text-align:center;color:var(--i10-cyan);font-weight:700">&#10003;</td><td></td></tr>
+        <tr><td>Consultoria BNCC Computa&ccedil;&atilde;o</td><td></td><td style="text-align:center;color:var(--i10-cyan);font-weight:700">&#10003;</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- METAS -->
+<section style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <h2>6. Metas e Indicadores</h2>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num">645</div>
+        <div class="stat-label">Munic&iacute;pios contactados (Fase 1)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Taxa de disparo</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">30%+</div>
+        <div class="stat-label">Meta de ades&atilde;o Fase 1</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">50%+</div>
+        <div class="stat-label">Meta acumulada (Fase 1+2)</div>
+      </div>
+    </div>
+
+    <h3>KPIs de Acompanhamento</h3>
+    <table>
+      <thead>
+        <tr><th>Indicador</th><th>Fase 1</th><th>Fase 2</th><th>Acumulado</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>E-mails enviados</td><td>1.290</td><td>~800</td><td>~2.090</td></tr>
+        <tr><td>WhatsApp enviados</td><td>645</td><td>~400</td><td>~1.045</td></tr>
+        <tr><td>Liga&ccedil;&otilde;es realizadas</td><td>A definir</td><td>A definir</td><td>—</td></tr>
+        <tr><td>Aceites recebidos</td><td>Meta: 195+</td><td>Meta: 130+</td><td>325+</td></tr>
+        <tr><td>Contratos fechados</td><td>A acompanhar</td><td>A acompanhar</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ASSETS -->
+<section>
+  <div class="container">
+    <h2>7. Ativos Digitais Produzidos</h2>
+
+    <table>
+      <thead>
+        <tr><th>Ativo</th><th>Status</th><th>Local</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><b>Landing Page APM + i10</b></td><td style="color:var(--apm-green);font-weight:600">Pronto</td><td>Vercel (repo Rruiz270/APM)</td></tr>
+        <tr><td><b>645 PDFs resumo (1 p&aacute;gina)</b></td><td style="color:var(--apm-green);font-weight:600">Pronto</td><td>/fundeb-sp-2026/relatorios-apm/</td></tr>
+        <tr><td><b>Modelos de e-mail (prefeitos)</b></td><td style="color:var(--apm-green);font-weight:600">Pronto</td><td>Neste documento (se&ccedil;&atilde;o 8)</td></tr>
+        <tr><td><b>Modelos de e-mail (secret&aacute;rios)</b></td><td style="color:var(--apm-green);font-weight:600">Pronto</td><td>Neste documento (se&ccedil;&atilde;o 8)</td></tr>
+        <tr><td><b>Script WhatsApp (Fred)</b></td><td style="color:var(--apm-green);font-weight:600">Pronto</td><td>Neste documento (se&ccedil;&atilde;o 8)</td></tr>
+        <tr><td><b>Plano de A&ccedil;&atilde;o (este documento)</b></td><td style="color:var(--apm-green);font-weight:600">Pronto</td><td>plano-acao-apm-i10.html</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- COMUNICACAO -->
+<section style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <h2>8. Modelos de Comunica&ccedil;&atilde;o</h2>
+
+    <h3>8.1 E-mail para Prefeitos — Fase 1</h3>
+    <div class="msg-template">
+      <div class="msg-header">&#9993; Modelo de E-mail — Prefeito(a)</div>
+<b>Assunto:</b> [APM] Diagn&oacute;stico FUNDEB 2026 — Seu munic&iacute;pio pode estar perdendo R$ [VALOR]
+
+Prezado(a) Prefeito(a) de [MUNIC&Iacute;PIO],
+
+A Associa&ccedil;&atilde;o Paulista de Munic&iacute;pios (APM), em parceria com o Instituto i10, realizou um diagn&oacute;stico completo do FUNDEB 2026 para todos os 645 munic&iacute;pios de S&atilde;o Paulo.
+
+<b>O resultado para [MUNIC&Iacute;PIO] &eacute; preocupante:</b>
+&#8226; Potencial n&atilde;o captado: <b>R$ [VALOR]</b>
+&#8226; Isso representa <b>[X]%</b> a mais sobre a receita FUNDEB atual
+&#8226; [MUNIC&Iacute;PIO] [n&atilde;o recebe / recebe] complementa&ccedil;&atilde;o VAAR
+
+<b>O Censo Escolar ser&aacute; dia 27 de maio.</b> Ap&oacute;s essa data, a janela de capta&ccedil;&atilde;o para 2026 se fecha.
+
+Estamos oferecendo, sem custo para este diagn&oacute;stico inicial, uma consultoria especializada para maximizar a capta&ccedil;&atilde;o FUNDEB do seu munic&iacute;pio. A consultoria inclui suporte jur&iacute;dico, implementa&ccedil;&atilde;o assistida e tecnologia de monitoramento.
+
+&#10132; <b>Veja o diagn&oacute;stico completo:</b> [LINK DA LP]
+&#10132; <b>PDF com o diagn&oacute;stico de [MUNIC&Iacute;PIO]:</b> em anexo
+
+Para agendar uma reuni&atilde;o com nossos especialistas, responda este e-mail ou entre em contato diretamente.
+
+Atenciosamente,
+<b>Associa&ccedil;&atilde;o Paulista de Munic&iacute;pios</b>
+Em parceria com o Instituto i10
+    </div>
+
+    <h3>8.2 E-mail para Secret&aacute;rios de Educa&ccedil;&atilde;o — Fase 1</h3>
+    <div class="msg-template">
+      <div class="msg-header">&#9993; Modelo de E-mail — Secret&aacute;rio(a) de Educa&ccedil;&atilde;o</div>
+<b>Assunto:</b> [APM] URGENTE: Censo Escolar 27/05 — Seu munic&iacute;pio est&aacute; deixando R$ [VALOR] na mesa
+
+Prezado(a) Secret&aacute;rio(a) de Educa&ccedil;&atilde;o de [MUNIC&Iacute;PIO],
+
+A APM e o Instituto i10 realizaram uma an&aacute;lise t&eacute;cnica detalhada do FUNDEB 2026 para [MUNIC&Iacute;PIO]. Identificamos <b>6 alavancas de capta&ccedil;&atilde;o</b> que podem gerar at&eacute; <b>R$ [VALOR]</b> em recursos adicionais.
+
+<b>Principais achados:</b>
+&#8226; [X] categorias de matr&iacute;cula n&atilde;o est&atilde;o sendo captadas
+&#8226; [Y] alunos podem ser convertidos para tempo integral
+&#8226; AEE dupla matr&iacute;cula: potencial de R$ [Z]
+&#8226; VAAR: [status — potencial de R$ W se cumprir condicionalidades]
+
+<b>Data cr&iacute;tica: 27 de maio (Censo Escolar)</b>
+
+Oferecemos consultoria especializada que inclui:
+&#10003; Diagn&oacute;stico completo das 6 alavancas
+&#10003; Suporte jur&iacute;dico (resolu&ccedil;&otilde;es CME, conv&ecirc;nios)
+&#10003; Implementa&ccedil;&atilde;o assistida antes do Censo
+&#10003; Compliance VAAR
+&#10003; BNCC Computa&ccedil;&atilde;o (obrigat&oacute;ria 2026)
+
+&#10132; <b>Diagn&oacute;stico interativo:</b> [LINK DA LP]
+&#10132; <b>Relat&oacute;rio de [MUNIC&Iacute;PIO]:</b> em anexo
+
+Vamos agendar uma conversa t&eacute;cnica esta semana?
+
+Atenciosamente,
+<b>APM — Associa&ccedil;&atilde;o Paulista de Munic&iacute;pios</b>
+Parceria t&eacute;cnica: Instituto i10
+    </div>
+
+    <h3>8.3 WhatsApp — Mensagem do Fred (com PDF)</h3>
+    <div class="msg-template">
+      <div class="msg-header">&#128172; Modelo WhatsApp — Fred</div>
+Ol&aacute;, [NOME]! Tudo bem?
+
+Aqui &eacute; o Fred, da Associa&ccedil;&atilde;o Paulista de Munic&iacute;pios (APM).
+
+Estou enviando um diagn&oacute;stico FUNDEB 2026 personalizado para *[MUNIC&Iacute;PIO]*. Identificamos que o munic&iacute;pio pode estar deixando de captar *R$ [VALOR]* em recursos FUNDEB.
+
+&#128205; O Censo Escolar &eacute; dia *27 de maio* — ap&oacute;s essa data a janela fecha.
+
+Segue o relat&oacute;rio em PDF &#128071;
+
+A APM est&aacute; em parceria com o Instituto i10 oferecendo consultoria especializada para maximizar essa capta&ccedil;&atilde;o. Posso agendar uma conversa r&aacute;pida para explicar?
+    </div>
+
+    <h3>8.4 WhatsApp — Follow-up (munic&iacute;pios sem resposta)</h3>
+    <div class="msg-template">
+      <div class="msg-header">&#128172; Modelo WhatsApp — Follow-up</div>
+Ol&aacute;, [NOME]! Aqui &eacute; o Fred da APM.
+
+Enviei um diagn&oacute;stico FUNDEB para *[MUNIC&Iacute;PIO]* na semana passada. J&aacute; conseguiu dar uma olhada?
+
+S&oacute; para refor&ccedil;ar: faltam [X] dias para o Censo Escolar (27/05). Cada dia sem a&ccedil;&atilde;o &eacute; recurso perdido.
+
+O munic&iacute;pio tem *R$ [VALOR]* em potencial n&atilde;o captado. Nossa consultoria pode come&ccedil;ar a implementar imediatamente.
+
+Posso ligar em 5 minutos para explicar?
+    </div>
+
+    <h3>8.5 Comunica&ccedil;&atilde;o Fase 2 — BNCC Computa&ccedil;&atilde;o</h3>
+    <div class="msg-template">
+      <div class="msg-header">&#9993; Modelo E-mail — Fase 2 (munic&iacute;pios que n&atilde;o aderiram)</div>
+<b>Assunto:</b> [APM] [MUNIC&Iacute;PIO] j&aacute; perdeu R$ [VALOR FASE 1]. N&atilde;o perca tamb&eacute;m a BNCC Computa&ccedil;&atilde;o.
+
+Prezado(a) Prefeito(a) / Secret&aacute;rio(a) de [MUNIC&Iacute;PIO],
+
+O Censo Escolar 2026 j&aacute; passou. Infelizmente, [MUNIC&Iacute;PIO] n&atilde;o realizou os ajustes necess&aacute;rios e deixou de captar <b>R$ [VALOR FASE 1]</b> em recursos FUNDEB que estavam dispon&iacute;veis.
+
+<b>Mas ainda h&aacute; uma janela aberta:</b>
+
+A implementa&ccedil;&atilde;o da BNCC Computa&ccedil;&atilde;o &eacute; obrigat&oacute;ria at&eacute; agosto de 2026. Munic&iacute;pios que n&atilde;o implementarem perdem acesso a recursos espec&iacute;ficos em 2027.
+
+<b>O que [MUNIC&Iacute;PIO] ainda pode captar:</b>
+&#8226; Recursos vinculados &agrave; BNCC Computa&ccedil;&atilde;o para 2027
+&#8226; Compliance VAAR (janela cont&iacute;nua)
+&#8226; Prepara&ccedil;&atilde;o antecipada para o Censo 2027
+
+N&atilde;o deixe escapar mais esta oportunidade. A APM e o Instituto i10 est&atilde;o prontos para ajudar.
+
+&#10132; [LINK DA LP]
+
+Atenciosamente,
+<b>APM + Instituto i10</b>
+    </div>
+  </div>
+</section>
+
+<!-- PROXIMOS PASSOS -->
+<section>
+  <div class="container">
+    <h2>9. Pr&oacute;ximos Passos Imediatos</h2>
+
+    <ul class="checklist">
+      <li>Validar lista de e-mails dos 645 prefeitos e secret&aacute;rios de educa&ccedil;&atilde;o</li>
+      <li>Validar lista de WhatsApp (contatos Fred)</li>
+      <li>Revisar e aprovar modelos de comunica&ccedil;&atilde;o</li>
+      <li>Confirmar URL da LP APM + i10 no Vercel</li>
+      <li>Distribuir os 645 PDFs para Fred (WhatsApp)</li>
+      <li>Agendar data do primeiro disparo por e-mail</li>
+      <li>Confirmar agenda dos encontros de cons&oacute;rcios APM</li>
+      <li>Confirmar equipe de mobiliza&ccedil;&atilde;o (ex-secret&aacute;rio + operacional)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="container">
+    <p style="margin-bottom:6px"><b>Associa&ccedil;&atilde;o Paulista de Munic&iacute;pios</b> + <b>Instituto i10</b></p>
+    <p style="margin-bottom:6px;font-size:0.78rem;opacity:0.7;text-transform:uppercase;letter-spacing:1px">A For&ccedil;a do Municipalismo</p>
+    <p>Documento confidencial — Parceria institucional | Abril 2026</p>
+  </div>
+</div>
+
+</body>
+</html>
