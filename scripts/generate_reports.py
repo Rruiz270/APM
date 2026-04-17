@@ -120,7 +120,25 @@ body {{ font-family: 'Inter', -apple-system, sans-serif; font-size: 8.5pt; color
 .header .logos {{
     display: flex; align-items: center; gap: 3mm; margin-bottom: 3mm;
 }}
-.header .logos img {{ height: 12mm; border-radius: 2mm; background: #fff; padding: 1mm; }}
+/* APM pill-shape logo (CSS) */
+.apm-pill {{
+    display: inline-flex; align-items: center; height: 12mm; border-radius: 50px;
+    overflow: hidden; flex-shrink: 0;
+}}
+.apm-pill .apm-t {{
+    background: linear-gradient(135deg, #0D7377, #11998E);
+    color: #fff; font-weight: 800; font-size: 14pt; letter-spacing: 1.5pt;
+    padding: 0 4mm 0 5mm; height: 100%; display: flex; align-items: center;
+}}
+.apm-pill .apm-s {{
+    background: linear-gradient(135deg, #1B8A5C, #0F6B3A);
+    height: 100%; padding: 0 1.5mm; display: flex; align-items: center;
+    border-left: 0.5mm solid rgba(255,255,255,0.25);
+}}
+.apm-pill .apm-s img {{
+    height: 9mm; width: 9mm; border-radius: 50%; border: 0.5mm solid rgba(255,255,255,0.5);
+    background: transparent; padding: 0;
+}}
 .header .logos .partner {{ font-size: 7pt; opacity: 0.8; margin-left: 2mm; }}
 .header .logos .partner b {{ display: block; font-size: 8pt; opacity: 1; }}
 .header h1 {{ font-family: 'Source Serif 4', serif; font-size: 18pt; font-weight: 700; line-height: 1.2; }}
@@ -169,20 +187,6 @@ h2 {{
 
 .two-col {{ display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }}
 
-.cta {{
-    background: linear-gradient(135deg, #0A5C5F, #0D7377);
-    color: #fff; padding: 5mm; border-radius: 2.5mm; margin-top: 3mm;
-    text-align: center; position: relative; overflow: hidden;
-}}
-.cta::before {{
-    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-    background: repeating-conic-gradient(rgba(255,255,255,0.03) 0% 25%, transparent 0% 50%) 0 0 / 15px 15px;
-}}
-.cta h3 {{ font-size: 10pt; color: #00E5A0; position: relative; font-family: 'Source Serif 4', serif; margin-bottom: 1mm; }}
-.cta p {{ font-size: 7.5pt; opacity: 0.8; position: relative; }}
-.cta .items {{ display: flex; justify-content: center; gap: 3mm; margin-top: 2mm; font-size: 6.5pt; position: relative; }}
-.cta .item {{ background: rgba(255,255,255,0.1); border: 0.3mm solid rgba(255,255,255,0.2); padding: 1mm 3mm; border-radius: 1.5mm; }}
-
 .info-row {{ display: flex; justify-content: space-between; padding: 1mm 0; font-size: 7.5pt; border-bottom: 0.1mm solid #F0F3F7; }}
 .info-row .il {{ color: #718096; }}
 .info-row .iv {{ font-weight: 600; }}
@@ -199,7 +203,10 @@ h2 {{
 <div class="header">
     <div class="header-left">
         <div class="logos">
-            <img src="https://apaulista.org.br/wp-content/uploads/2023/10/logo.png" alt="APM">
+            <div class="apm-pill">
+                <div class="apm-t">APM</div>
+                <div class="apm-s"><img src="https://apaulista.org.br/wp-content/uploads/2023/10/logo.png" alt="APM"></div>
+            </div>
             <div class="partner">
                 <b>Associação Paulista de Municípios</b>
                 Parceria técnica: Instituto i10
@@ -275,19 +282,7 @@ h2 {{
 <h2>Recomendações Priorizadas</h2>
 {strat_html}
 
-<div class="cta">
-    <h3>A APM e o Instituto i10 podem implementar este plano para {mun['nome']}</h3>
-    <p>Consultoria especializada: Tecnologia · Dados · Suporte Jurídico · BNCC Computação</p>
-    <div class="items">
-        <div class="item">Diagnóstico Completo</div>
-        <div class="item">Compliance VAAR</div>
-        <div class="item">Busca Ativa AEE</div>
-        <div class="item">Suporte Jurídico</div>
-        <div class="item">BNCC Computação</div>
-    </div>
-</div>
-
-<div style="text-align:center;margin-top:2mm;font-size:6.5pt;color:#718096">
+<div style="text-align:center;margin-top:4mm;font-size:6.5pt;color:#718096">
     Relatório gerado em {TODAY} · Dados: MEC/FNDE FUNDEB 2026 (parâmetros definitivos)
 </div>
 
