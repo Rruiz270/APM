@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAMPLE — APM | Diagnóstico FUNDEB 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F4F7FA; --card: #fff; --border: #DDE3EB;
+  --text: #1A3A3A; --text2: #4A5568; --text3: #718096;
+  --teal: #0D7377; --teal-dark: #0A5C5F; --teal-light: #11998E;
+  --green-apm: #1B8A5C; --green-dark: #0F6B3A;
+  --accent: #00E5A0;
+  --red: #D4553A; --orange: #E8A838;
+  --teal-bg: rgba(13,115,119,0.06);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: #1A202C; line-height: 1.6; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+/* ===== APM LOGO COMPONENT (CSS pill-shape like congress materials) ===== */
+.apm-logo-pill {
+  display: inline-flex; align-items: center; height: 56px; border-radius: 50px;
+  overflow: hidden; flex-shrink: 0;
+}
+.apm-logo-pill .apm-text {
+  background: linear-gradient(135deg, #0D7377 0%, #11998E 100%);
+  color: #fff; font-weight: 800; font-size: 1.5rem; letter-spacing: 2px;
+  padding: 0 20px 0 24px; height: 100%; display: flex; align-items: center;
+  font-family: 'Inter', sans-serif;
+}
+.apm-logo-pill .apm-seal {
+  background: linear-gradient(135deg, #1B8A5C 0%, #0F6B3A 100%);
+  height: 100%; padding: 0 8px; display: flex; align-items: center;
+  border-left: 2px solid rgba(255,255,255,0.2);
+}
+.apm-logo-pill .apm-seal img {
+  height: 42px; width: 42px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.5);
+}
+/* Small variant */
+.apm-logo-pill.small { height: 40px; }
+.apm-logo-pill.small .apm-text { font-size: 1.1rem; padding: 0 14px 0 18px; }
+.apm-logo-pill.small .apm-seal img { height: 30px; width: 30px; }
+
+/* ===== HERO ===== */
+.hero {
+  background: linear-gradient(135deg, #0A5C5F 0%, #0D7377 40%, #11998E 100%);
+  color: #fff; padding: 50px 0 80px; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80'%3E%3Cpath fill='%23F4F7FA' d='M0,40 Q360,0 720,40 T1440,40 L1440,80 L0,80 Z'/%3E%3C/svg%3E") no-repeat bottom;
+  background-size: cover;
+}
+.hero::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(120deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 20px);
+  pointer-events: none;
+}
+/* Chevron pattern */
+.hero-chevron {
+  position: absolute; bottom: 60px; left: 0; right: 0; height: 40px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40'%3E%3Cpath d='M0,40 L40,15 L80,40' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='2'/%3E%3C/svg%3E") repeat-x;
+  pointer-events: none;
+}
+.hero-top {
+  display: flex; align-items: center; gap: 20px; margin-bottom: 28px; position: relative; z-index: 2; flex-wrap: wrap;
+}
+.hero-partner {
+  font-size: 0.78rem; opacity: 0.75; border-left: 1px solid rgba(255,255,255,0.3); padding-left: 16px;
+}
+.hero-partner b { display: block; opacity: 1; font-size: 0.85rem; }
+.hero-content { position: relative; z-index: 2; }
+.hero h1 { font-family: 'Source Serif 4', serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 12px; line-height: 1.2; }
+.hero .subtitle { font-size: 1.1rem; opacity: 0.85; max-width: 620px; margin-bottom: 30px; font-weight: 300; }
+.hero-stats { display: flex; gap: 40px; margin-bottom: 40px; flex-wrap: wrap; }
+.hero-stat .number { font-size: 2.2rem; font-weight: 800; color: #00E5A0; }
+.hero-stat .label { font-size: 0.85rem; opacity: 0.65; }
+.hero .tagline {
+  display: inline-block; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+  padding: 6px 20px; border-radius: 50px; font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;
+}
+
+/* ===== SEARCH ===== */
+.search-section { margin-top: -40px; position: relative; z-index: 10; }
+.search-box {
+  background: var(--card); border-radius: 16px; padding: 30px 40px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.12); max-width: 800px; margin: 0 auto;
+}
+.search-box h2 { font-size: 1.2rem; color: var(--teal-dark); margin-bottom: 12px; font-weight: 700; }
+.search-input {
+  width: 100%; padding: 16px 20px; border: 2px solid var(--border); border-radius: 50px;
+  font-size: 1.1rem; outline: none; transition: border-color 0.2s; font-family: inherit;
+}
+.search-input:focus { border-color: var(--teal); }
+
+/* ===== SAMPLE RESULT (static) ===== */
+.result-section { padding: 40px 0; }
+.result-header {
+  background: linear-gradient(135deg, #0A5C5F, #11998E);
+  color: #fff; border-radius: 16px; padding: 30px 40px; margin-bottom: 20px;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+}
+.result-header h2 { font-size: 1.8rem; font-weight: 800; }
+.result-header .big-pot { text-align: right; }
+.result-header .big-pot .number { font-size: 2.4rem; font-weight: 800; }
+.result-header .big-pot .pct { font-size: 1.2rem; opacity: 0.9; }
+
+.result-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.r-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center;
+}
+.r-card .r-label { font-size: 0.75rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
+.r-card .r-val { font-size: 1.5rem; font-weight: 700; margin-top: 4px; }
+.r-card .r-val.green { color: var(--teal); }
+.r-card .r-val.orange { color: var(--orange); }
+
+/* Tiers */
+.tiers-section {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 24px;
+}
+.tiers-section h3 { font-size: 1rem; color: var(--teal-dark); margin-bottom: 16px; font-weight: 700; }
+.tier-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f7fafc; }
+.tier-row:last-child { border-bottom: none; }
+.tier-name { width: 200px; font-weight: 500; font-size: 0.9rem; }
+.tier-bar-outer { flex: 1; height: 24px; background: #edf2f7; border-radius: 50px; overflow: hidden; }
+.tier-bar-fill { height: 100%; border-radius: 50px; min-width: 2px; }
+.tier-val { width: 120px; text-align: right; font-weight: 600; font-size: 0.9rem; }
+
+/* ===== CTA ===== */
+.cta-section {
+  background: linear-gradient(135deg, #0A5C5F, #0D7377); border-radius: 16px;
+  position: relative; overflow: hidden;
+  padding: 40px; text-align: center; color: #fff; margin: 40px 0;
+}
+.cta-section h2 { font-size: 1.6rem; margin-bottom: 10px; position: relative; }
+.cta-section p { opacity: 0.85; max-width: 600px; margin: 0 auto 20px; position: relative; }
+
+/* ===== FOOTER ===== */
+.footer-bar {
+  background: linear-gradient(135deg, #0A5C5F, #0D7377);
+  color: #fff; text-align: center; font-size: 0.82rem; position: relative;
+}
+.footer-skyline {
+  width: 100%; height: 60px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60'%3E%3Crect x='50' y='20' width='30' height='40' rx='2' fill='rgba(255,255,255,0.08)'/%3E%3Crect x='90' y='10' width='20' height='50' rx='2' fill='rgba(255,255,255,0.06)'/%3E%3Crect x='120' y='25' width='40' height='35' rx='2' fill='rgba(255,255,255,0.07)'/%3E%3Crect x='200' y='15' width='25' height='45' rx='2' fill='rgba(255,255,255,0.05)'/%3E%3Crect x='240' y='30' width='35' height='30' rx='2' fill='rgba(255,255,255,0.08)'/%3E%3Crect x='320' y='5' width='20' height='55' rx='2' fill='rgba(255,255,255,0.06)'/%3E%3Crect x='360' y='20' width='30' height='40' rx='2' fill='rgba(255,255,255,0.07)'/%3E%3Crect x='430' y='10' width='25' height='50' rx='2' fill='rgba(255,255,255,0.05)'/%3E%3Crect x='500' y='25' width='40' height='35' rx='2' fill='rgba(255,255,255,0.08)'/%3E%3Crect x='580' y='15' width='20' height='45' rx='2' fill='rgba(255,255,255,0.06)'/%3E%3Crect x='640' y='20' width='35' height='40' rx='2' fill='rgba(255,255,255,0.07)'/%3E%3Crect x='720' y='8' width='25' height='52' rx='2' fill='rgba(255,255,255,0.05)'/%3E%3Crect x='790' y='22' width='30' height='38' rx='2' fill='rgba(255,255,255,0.08)'/%3E%3Crect x='860' y='12' width='20' height='48' rx='2' fill='rgba(255,255,255,0.06)'/%3E%3Crect x='920' y='28' width='40' height='32' rx='2' fill='rgba(255,255,255,0.07)'/%3E%3Crect x='1000' y='18' width='25' height='42' rx='2' fill='rgba(255,255,255,0.05)'/%3E%3Crect x='1060' y='10' width='35' height='50' rx='2' fill='rgba(255,255,255,0.08)'/%3E%3Crect x='1140' y='24' width='20' height='36' rx='2' fill='rgba(255,255,255,0.06)'/%3E%3Crect x='1200' y='15' width='30' height='45' rx='2' fill='rgba(255,255,255,0.07)'/%3E%3Crect x='1280' y='20' width='25' height='40' rx='2' fill='rgba(255,255,255,0.05)'/%3E%3Crect x='1350' y='8' width='40' height='52' rx='2' fill='rgba(255,255,255,0.08)'/%3E%3C/svg%3E") repeat-x bottom;
+}
+.footer-content { padding: 20px 0 24px; }
+.footer-logos { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 10px; }
+.footer-tagline {
+  display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+  padding: 4px 16px; border-radius: 50px; font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;
+}
+
+/* ===== SAMPLE BANNER ===== */
+.sample-banner {
+  background: #E53E3E; color: #fff; text-align: center; padding: 10px; font-weight: 700; font-size: 0.9rem;
+  position: sticky; top: 0; z-index: 999;
+}
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 1.6rem; }
+  .hero-stats { gap: 20px; }
+  .hero-stat .number { font-size: 1.5rem; }
+  .search-box { padding: 20px; }
+  .result-header { flex-direction: column; text-align: center; }
+  .tier-name { width: 120px; font-size: 0.8rem; }
+  .tier-val { width: 90px; font-size: 0.8rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="sample-banner">SAMPLE PARA APROVA&Ccedil;&Atilde;O &mdash; Logo APM em CSS (pill-shape + selo SP)</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-chevron"></div>
+  <div class="container hero-content">
+    <div class="hero-top">
+      <!-- APM LOGO: CSS pill-shape matching congress branding -->
+      <div class="apm-logo-pill">
+        <div class="apm-text">APM</div>
+        <div class="apm-seal">
+          <img src="/assets/apm-logo-site.png" alt="Associa&ccedil;&atilde;o Paulista de Munic&iacute;pios">
+        </div>
+      </div>
+      <div class="hero-partner">
+        <b>Parceria t&eacute;cnica</b>
+        Instituto i10
+      </div>
+    </div>
+    <div class="tagline">A For&ccedil;a do Municipalismo</div>
+    <h1>Seu munic&iacute;pio est&aacute; captando<br>tudo que pode do FUNDEB?</h1>
+    <p class="subtitle">A APM e o Instituto i10 identificaram R$ 13 bilh&otilde;es em recursos FUNDEB n&atilde;o captados pelos 645 munic&iacute;pios de S&atilde;o Paulo. Descubra quanto o seu munic&iacute;pio est&aacute; deixando na mesa.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="number">R$ 13 bi</div>
+        <div class="label">Potencial n&atilde;o captado em SP</div>
+      </div>
+      <div class="hero-stat">
+        <div class="number">645</div>
+        <div class="label">Munic&iacute;pios analisados</div>
+      </div>
+      <div class="hero-stat">
+        <div class="number">42%</div>
+        <div class="label">Ganho mediano identificado</div>
+      </div>
+      <div class="hero-stat">
+        <div class="number">6</div>
+        <div class="label">Alavancas de capta&ccedil;&atilde;o</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SEARCH -->
+<div class="search-section">
+  <div class="container">
+    <div class="search-box">
+      <h2>Busque seu munic&iacute;pio</h2>
+      <input type="text" class="search-input" placeholder="Digite o nome do munic&iacute;pio..." value="Adamantina" disabled>
+    </div>
+  </div>
+</div>
+
+<!-- SAMPLE RESULT: Adamantina -->
+<div class="result-section" style="display:block">
+  <div class="container">
+    <div class="result-header">
+      <h2>Adamantina</h2>
+      <div class="big-pot">
+        <div class="number">R$ 8,2M</div>
+        <div class="pct">+37,4% sobre o atual</div>
+      </div>
+    </div>
+
+    <div class="result-grid">
+      <div class="r-card">
+        <div class="r-label">Matr&iacute;culas</div>
+        <div class="r-val green">5.842</div>
+      </div>
+      <div class="r-card">
+        <div class="r-label">FUNDEB Atual</div>
+        <div class="r-val green">R$ 21,9M</div>
+      </div>
+      <div class="r-card">
+        <div class="r-label">Potencial Total</div>
+        <div class="r-val green">R$ 8,2M</div>
+      </div>
+      <div class="r-card">
+        <div class="r-label">Ranking SP</div>
+        <div class="r-val orange">284&ordm; / 645</div>
+      </div>
+    </div>
+
+    <div class="tiers-section">
+      <h3>Detalhamento por Alavanca</h3>
+      <div class="tier-row">
+        <div class="tier-name">T1 &mdash; Expans&atilde;o VAAF</div>
+        <div class="tier-bar-outer"><div class="tier-bar-fill" style="width:40%;background:#0D7377"></div></div>
+        <div class="tier-val" style="color:#0D7377">R$ 3,3M</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-name">T2 &mdash; Convers&atilde;o Integral</div>
+        <div class="tier-bar-outer"><div class="tier-bar-fill" style="width:25%;background:#0E8B7D"></div></div>
+        <div class="tier-val" style="color:#0E8B7D">R$ 2,1M</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-name">T3 &mdash; AEE Dupla Matr&iacute;cula</div>
+        <div class="tier-bar-outer"><div class="tier-bar-fill" style="width:15%;background:#11998E"></div></div>
+        <div class="tier-val" style="color:#11998E">R$ 1,2M</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-name">T4 &mdash; Reclassifica&ccedil;&atilde;o</div>
+        <div class="tier-bar-outer"><div class="tier-bar-fill" style="width:8%;background:#1B8A5C"></div></div>
+        <div class="tier-val" style="color:#1B8A5C">R$ 0,6M</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-name">T5 &mdash; VAAR Federal</div>
+        <div class="tier-bar-outer"><div class="tier-bar-fill" style="width:5%;background:#2ECC71"></div></div>
+        <div class="tier-val" style="color:#2ECC71">R$ 0,4M</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-name">T6 &mdash; EC 135 + BNCC</div>
+        <div class="tier-bar-outer"><div class="tier-bar-fill" style="width:7%;background:#E8A838"></div></div>
+        <div class="tier-val" style="color:#E8A838">R$ 0,6M</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="container">
+  <div class="cta-section">
+    <h2 style="font-family:'Source Serif 4',serif">R$ 13 bilh&otilde;es est&atilde;o na mesa</h2>
+    <p>Cada dia sem a&ccedil;&atilde;o &eacute; receita perdida para o seu munic&iacute;pio. A APM e o Instituto i10 t&ecirc;m a tecnologia e a equipe para transformar dados em recursos reais.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer-bar">
+  <div class="footer-skyline"></div>
+  <div class="footer-content">
+    <div class="footer-logos">
+      <div class="apm-logo-pill small">
+        <div class="apm-text">APM</div>
+        <div class="apm-seal">
+          <img src="/assets/apm-logo-site.png" alt="APM">
+        </div>
+      </div>
+    </div>
+    <div class="footer-tagline">A For&ccedil;a do Municipalismo</div><br>
+    <b>Associa&ccedil;&atilde;o Paulista de Munic&iacute;pios</b> &mdash; Parceria t&eacute;cnica: Instituto i10<br>
+    <span style="opacity:0.6;font-size:0.75rem">Dados: MEC/FNDE FUNDEB 2026 (par&acirc;metros definitivos)</span>
+  </div>
+</div>
+
+</body>
+</html>
