@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APM | Diagnóstico FUNDEB 2026 — São Paulo</title>
+<meta name="description" content="A Associação Paulista de Municípios identificou R$ 13 bilhões em recursos FUNDEB não captados pelos 645 municípios de São Paulo. Descubra o potencial do seu município.">
+<link rel="icon" href="https://apaulista.org.br/wp-content/uploads/2023/10/logo.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F4F7FA; --card: #fff; --border: #DDE3EB; --text: #1B5E20;
+  --text2: #4A5568; --text3: #718096;
+  --primary: #2E7D32; --primary-dark: #1B5E20; --primary-light: #4CAF50;
+  --accent: #00E5A0; --accent2: #00C88A;
+  --green-bg: rgba(46,125,50,0.06); --green2: #00E5A0;
+  --red: #D4553A; --orange: #E8A838; --orange-bg: rgba(232,168,56,0.08);
+  --blue-bg: rgba(46,125,50,0.06); --cyan: #4CAF50;
+  --i10-blue: #0A2463; --i10-cyan: #00B4D8;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: #1A202C; line-height: 1.6; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 60%, #388E3C 100%);
+  color: #fff; padding: 50px 0 80px; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-conic-gradient(rgba(255,255,255,0.03) 0% 25%, transparent 0% 50%) 0 0 / 40px 40px;
+  pointer-events: none;
+}
+.hero::after {
+  content: ''; position: absolute; top: -30%; right: -15%; width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0,229,160,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-top {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 28px; position: relative; flex-wrap: wrap;
+}
+.hero-logo { height: 56px; border-radius: 8px; background: #fff; padding: 4px; }
+.hero-partner {
+  font-size: 0.78rem; opacity: 0.7; border-left: 1px solid rgba(255,255,255,0.3); padding-left: 16px;
+}
+.hero-partner b { display: block; opacity: 1; font-size: 0.85rem; }
+.hero h1 { font-family: 'Source Serif 4', serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 12px; line-height: 1.2; position: relative; }
+.hero .subtitle { font-size: 1.1rem; opacity: 0.8; max-width: 620px; margin-bottom: 30px; position: relative; font-weight: 300; }
+.hero-stats { display: flex; gap: 40px; margin-bottom: 40px; flex-wrap: wrap; position: relative; }
+.hero-stat .number { font-size: 2.2rem; font-weight: 800; color: #00E5A0; }
+.hero-stat .label { font-size: 0.85rem; opacity: 0.65; }
+
+/* Search */
+.search-section { margin-top: -40px; position: relative; z-index: 10; }
+.search-box {
+  background: var(--card); border-radius: 16px; padding: 30px 40px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.12); max-width: 800px; margin: 0 auto;
+}
+.search-box h2 { font-size: 1.2rem; color: var(--primary-dark); margin-bottom: 12px; }
+.search-input-wrap { position: relative; }
+.search-input {
+  width: 100%; padding: 16px 20px; border: 2px solid var(--border); border-radius: 12px;
+  font-size: 1.1rem; outline: none; transition: border-color 0.2s; font-family: inherit;
+}
+.search-input:focus { border-color: var(--primary); }
+.search-input::placeholder { color: var(--text3); }
+.search-suggestions {
+  position: absolute; top: 100%; left: 0; right: 0; background: var(--card);
+  border: 1px solid var(--border); border-radius: 12px; margin-top: 4px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1); display: none; max-height: 300px;
+  overflow-y: auto; z-index: 50;
+}
+.search-suggestions.show { display: block; }
+.suggestion {
+  padding: 12px 20px; cursor: pointer; font-size: 0.95rem;
+  border-bottom: 1px solid #f7fafc; display: flex; justify-content: space-between;
+}
+.suggestion:hover { background: var(--green-bg); }
+.suggestion .s-pot { color: var(--accent2); font-weight: 600; font-size: 0.85rem; }
+
+/* Result */
+.result-section { padding: 40px 0; display: none; }
+.result-section.show { display: block; }
+.result-header {
+  background: linear-gradient(135deg, #1B5E20, #4CAF50);
+  color: #fff; border-radius: 16px; padding: 30px 40px; margin-bottom: 20px;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+}
+.result-header h2 { font-size: 1.8rem; font-weight: 800; }
+.result-header .big-pot { text-align: right; }
+.result-header .big-pot .number { font-size: 2.4rem; font-weight: 800; }
+.result-header .big-pot .pct { font-size: 1.2rem; opacity: 0.9; }
+
+.result-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.r-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 20px; text-align: center;
+}
+.r-card .r-label { font-size: 0.75rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
+.r-card .r-val { font-size: 1.5rem; font-weight: 700; margin-top: 4px; }
+.r-card .r-val.green { color: var(--accent2); }
+.r-card .r-val.blue { color: var(--primary); }
+.r-card .r-val.orange { color: var(--orange); }
+
+.tiers-section {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 24px; margin-bottom: 24px;
+}
+.tiers-section h3 { font-size: 1rem; color: var(--primary-dark); margin-bottom: 16px; }
+.tier-row {
+  display: flex; align-items: center; gap: 12px; padding: 10px 0;
+  border-bottom: 1px solid #f7fafc;
+}
+.tier-row:last-child { border-bottom: none; }
+.tier-name { width: 200px; font-weight: 500; font-size: 0.9rem; }
+.tier-bar-outer { flex: 1; height: 24px; background: #edf2f7; border-radius: 6px; overflow: hidden; }
+.tier-bar-fill { height: 100%; border-radius: 6px; transition: width 0.8s ease; min-width: 2px; }
+.tier-val { width: 120px; text-align: right; font-weight: 600; font-size: 0.9rem; }
+
+.strats-section {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 24px; margin-bottom: 24px;
+}
+.strats-section h3 { font-size: 1rem; color: var(--primary-dark); margin-bottom: 16px; }
+.strat-item { padding: 12px 0; border-bottom: 1px solid #f7fafc; font-size: 0.9rem; }
+.strat-badge {
+  display: inline-block; padding: 2px 10px; border-radius: 20px;
+  font-size: 0.7rem; font-weight: 700; margin-right: 6px;
+}
+.strat-badge-alto { background: rgba(0,200,138,0.1); color: var(--accent2); }
+.strat-badge-medio { background: var(--orange-bg); color: var(--orange); }
+.strat-badge-baixo { background: rgba(46,125,50,0.08); color: var(--primary); }
+.strat-tier { background: #edf2f7; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; color: var(--text2); margin-right: 6px; }
+.strat-desc { color: var(--text2); font-size: 0.82rem; margin-top: 2px; }
+
+.vaar-alert {
+  background: #fff5f5; border: 2px solid #fc8181; border-radius: 12px;
+  padding: 20px; margin-bottom: 24px; display: none;
+}
+.vaar-alert.show { display: block; }
+.vaar-alert h4 { color: var(--red); font-size: 1rem; margin-bottom: 6px; }
+.vaar-alert p { font-size: 0.85rem; color: #742a2a; }
+
+/* CTA */
+.cta-section {
+  background: linear-gradient(135deg, #1B5E20, #2E7D32); border-radius: 16px;
+  position: relative; overflow: hidden;
+  padding: 40px; text-align: center; color: #fff; margin: 40px 0;
+}
+.cta-section::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-conic-gradient(rgba(255,255,255,0.03) 0% 25%, transparent 0% 50%) 0 0 / 30px 30px;
+}
+.cta-section h2 { font-size: 1.6rem; margin-bottom: 10px; position: relative; }
+.cta-section p { opacity: 0.85; max-width: 600px; margin: 0 auto 20px; position: relative; }
+.cta-features { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; position: relative; }
+.cta-feat { background: rgba(255,255,255,0.12); padding: 8px 20px; border-radius: 8px; font-size: 0.85rem; }
+
+/* Problems */
+.problems-section { padding: 50px 0; }
+.problems-section h2 { text-align: center; font-size: 1.6rem; color: var(--primary-dark); margin-bottom: 10px; }
+.problems-section .sub { text-align: center; color: var(--text2); margin-bottom: 30px; }
+.problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.problem-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 24px; position: relative; overflow: hidden;
+}
+.problem-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.problem-card.red::before { background: #fc8181; }
+.problem-card.orange::before { background: #ed8936; }
+.problem-card.yellow::before { background: #ecc94b; }
+.problem-card .p-pct { font-size: 2rem; font-weight: 800; margin-bottom: 4px; }
+.problem-card .p-pct.red { color: var(--red); }
+.problem-card .p-pct.orange { color: var(--orange); }
+.problem-card h4 { font-size: 0.95rem; margin-bottom: 6px; }
+.problem-card p { font-size: 0.82rem; color: var(--text2); }
+
+/* Footer */
+.footer-bar {
+  background: var(--primary-dark); color: #fff; padding: 24px 0; text-align: center; font-size: 0.82rem;
+}
+.footer-logos {
+  display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 10px;
+}
+.footer-logos img { height: 36px; border-radius: 6px; background: #fff; padding: 3px; }
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 1.6rem; }
+  .hero-stats { gap: 20px; }
+  .hero-stat .number { font-size: 1.5rem; }
+  .search-box { padding: 20px; }
+  .result-header { flex-direction: column; text-align: center; }
+  .result-header .big-pot { text-align: center; }
+  .tier-name { width: 120px; font-size: 0.8rem; }
+  .tier-val { width: 90px; font-size: 0.8rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="container">
+    <div class="hero-top">
+      <img src="https://apaulista.org.br/wp-content/uploads/2023/10/logo.png" alt="APM" class="hero-logo">
+      <div class="hero-partner">
+        <b>Associa&ccedil;&atilde;o Paulista de Munic&iacute;pios</b>
+        em parceria com Instituto i10
+      </div>
+    </div>
+    <h1>Seu munic&iacute;pio est&aacute; captando<br>tudo que pode do FUNDEB?</h1>
+    <p class="subtitle">A APM e o Instituto i10 identificaram R$ 13 bilh&otilde;es em recursos FUNDEB n&atilde;o captados pelos 645 munic&iacute;pios de S&atilde;o Paulo. Descubra quanto o seu munic&iacute;pio est&aacute; deixando na mesa.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="number">R$ 13 bi</div>
+        <div class="label">Potencial n&atilde;o captado em SP</div>
+      </div>
+      <div class="hero-stat">
+        <div class="number">645</div>
+        <div class="label">Munic&iacute;pios analisados</div>
+      </div>
+      <div class="hero-stat">
+        <div class="number">42%</div>
+        <div class="label">Ganho mediano identificado</div>
+      </div>
+      <div class="hero-stat">
+        <div class="number">6</div>
+        <div class="label">Alavancas de capta&ccedil;&atilde;o</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="search-section">
+  <div class="container">
+    <div class="search-box">
+      <h2>Descubra o potencial do seu munic&iacute;pio</h2>
+      <div class="search-input-wrap">
+        <input type="text" class="search-input" id="searchInput" placeholder="Digite o nome do munic&iacute;pio..." autocomplete="off">
+        <div class="search-suggestions" id="suggestions"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="result-section" id="resultSection">
+  <div class="container">
+    <div class="result-header" id="resultHeader">
+      <div>
+        <h2 id="rNome"></h2>
+        <span id="rSub" style="opacity:0.85;font-size:0.9rem"></span>
+      </div>
+      <div class="big-pot">
+        <div class="number" id="rPotTotal"></div>
+        <div class="pct" id="rPotPct"></div>
+      </div>
+    </div>
+
+    <div class="vaar-alert" id="vaarAlert">
+      <h4>Seu munic&iacute;pio N&Atilde;O recebe VAAR</h4>
+      <p id="vaarAlertText"></p>
+    </div>
+
+    <div class="result-grid" id="resultCards"></div>
+
+    <div class="tiers-section">
+      <h3>Decomposi&ccedil;&atilde;o do Potencial por Alavanca</h3>
+      <div id="tiersContent"></div>
+    </div>
+
+    <div class="strats-section">
+      <h3>Recomenda&ccedil;&otilde;es Priorizadas</h3>
+      <div id="stratsContent"></div>
+    </div>
+
+    <div class="cta-section">
+      <h2 style="font-family:'Source Serif 4',serif">Quer captar esses recursos?</h2>
+      <p>A APM, em parceria com o Instituto i10, oferece consultoria especializada para transformar este diagn&oacute;stico em recursos reais. Tecnologia, dados, pessoas e suporte jur&iacute;dico.</p>
+      <div class="cta-features">
+        <div class="cta-feat">Plataforma de Intelig&ecirc;ncia</div>
+        <div class="cta-feat">Compliance VAAR</div>
+        <div class="cta-feat">Busca Ativa AEE</div>
+        <div class="cta-feat">Suporte Jur&iacute;dico</div>
+        <div class="cta-feat">BNCC Computa&ccedil;&atilde;o</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="problems-section" id="problemsSection">
+  <div class="container">
+    <h2 style="font-family:'Source Serif 4',serif">O problema: dados descentralizados, receita perdida</h2>
+    <p class="sub">A maioria dos munic&iacute;pios de SP tem dificuldades estruturais que impedem a capta&ccedil;&atilde;o plena</p>
+    <div class="problem-grid">
+      <div class="problem-card red">
+        <div class="p-pct red">69%</div>
+        <h4>N&atilde;o recebem VAAR</h4>
+        <p>448 de 645 munic&iacute;pios n&atilde;o cumprem as 5 condicionalidades para receber a complementa&ccedil;&atilde;o por resultados (R$ 7,5 bi dispon&iacute;veis).</p>
+      </div>
+      <div class="problem-card red">
+        <div class="p-pct red">93%</div>
+        <h4>AEE n&atilde;o maximizado</h4>
+        <p>600 munic&iacute;pios n&atilde;o exploram a dupla matr&iacute;cula AEE. Cada aluno de Ed. Especial com AEE gera 2x receita FUNDEB.</p>
+      </div>
+      <div class="problem-card orange">
+        <div class="p-pct orange">93%</div>
+        <h4>Conveniadas n&atilde;o formalizadas</h4>
+        <p>601 munic&iacute;pios n&atilde;o t&ecirc;m creche ou pr&eacute;-escola integral conveniada. Parcerias permitem expans&atilde;o r&aacute;pida.</p>
+      </div>
+      <div class="problem-card orange">
+        <div class="p-pct orange">85%</div>
+        <h4>Convers&atilde;o integral parada</h4>
+        <p>548 munic&iacute;pios t&ecirc;m mais de R$ 500K em potencial de convers&atilde;o parcial para integral.</p>
+      </div>
+      <div class="problem-card yellow">
+        <div class="p-pct orange">55%</div>
+        <h4>N&atilde;o captam EJA</h4>
+        <p>353 munic&iacute;pios n&atilde;o t&ecirc;m matr&iacute;culas de EJA registradas no FUNDEB. S&atilde;o R$ 6.536 por aluno/ano.</p>
+      </div>
+      <div class="problem-card yellow">
+        <div class="p-pct orange">45%</div>
+        <h4>Tempo integral abaixo de 30%</h4>
+        <p>292 munic&iacute;pios t&ecirc;m menos de 30% de matr&iacute;culas em tempo integral. Meta PNE: 50%.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="cta-section">
+    <h2 style="font-family:'Source Serif 4',serif">R$ 13 bilh&otilde;es est&atilde;o na mesa</h2>
+    <p>Cada dia sem a&ccedil;&atilde;o &eacute; receita perdida para o seu munic&iacute;pio. A APM e o Instituto i10 t&ecirc;m a tecnologia e a equipe para transformar dados em recursos reais.</p>
+  </div>
+</div>
+
+<div class="footer-bar">
+  <div class="container">
+    <div class="footer-logos">
+      <img src="https://apaulista.org.br/wp-content/uploads/2023/10/logo.png" alt="APM">
+    </div>
+    <b>Associa&ccedil;&atilde;o Paulista de Munic&iacute;pios</b> &mdash; Parceria t&eacute;cnica: Instituto i10<br>
+    <span style="opacity:0.7">Dados: MEC/FNDE FUNDEB 2026 (par&acirc;metros definitivos)</span>
+  </div>
+</div>
+
+<script>
+let DATA = [];
+
+function fmtBRL(v) {
+  if (!v && v !== 0) return '-';
+  if (Math.abs(v) >= 1e6) return 'R$ ' + (v/1e6).toFixed(1).replace('.',',') + 'M';
+  return 'R$ ' + v.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+function fmtN(v) { return v ? v.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '0'; }
+function fmtPct(v) { return v ? v.toFixed(1).replace('.',',') + '%' : '0%'; }
+
+const input = document.getElementById('searchInput');
+const sugBox = document.getElementById('suggestions');
+
+input.addEventListener('input', function() {
+  const q = this.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  if (q.length < 2) { sugBox.classList.remove('show'); return; }
+  const matches = DATA.filter(d =>
+    d.nome.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(q)
+  ).slice(0, 12);
+  if (matches.length === 0) { sugBox.classList.remove('show'); return; }
+  sugBox.innerHTML = matches.map(d => `
+    <div class="suggestion" data-id="${d.id}">
+      <span>${d.nome}</span>
+      <span class="s-pot">+${fmtPct(d.potencial.pct_pot_total)} | ${fmtBRL(d.potencial.pot_total_novo)}</span>
+    </div>`).join('');
+  sugBox.classList.add('show');
+  sugBox.querySelectorAll('.suggestion').forEach(s => {
+    s.addEventListener('click', () => selectMun(parseInt(s.dataset.id)));
+  });
+});
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.search-input-wrap')) sugBox.classList.remove('show');
+});
+
+function selectMun(id) {
+  const d = DATA.find(x => x.id === id);
+  if (!d) return;
+  sugBox.classList.remove('show');
+  input.value = d.nome;
+
+  const p = d.potencial;
+  const rec = p.recursos_totais || d.rec_intra;
+
+  document.getElementById('rNome').textContent = d.nome;
+  document.getElementById('rSub').textContent = fmtN(d.tot_mat) + ' matr\u00edculas | Ordem ' + d.ordem;
+  document.getElementById('rPotTotal').textContent = fmtBRL(p.pot_total_novo);
+  document.getElementById('rPotPct').textContent = '+' + fmtPct(p.pct_pot_total) + ' sobre receita atual';
+
+  // VAAR alert
+  const vaarEl = document.getElementById('vaarAlert');
+  if (!p.t5.recebe_vaar) {
+    vaarEl.classList.add('show');
+    document.getElementById('vaarAlertText').textContent =
+      d.nome + ' n\u00e3o recebe complementa\u00e7\u00e3o VAAR (R$ 7,5 bi dispon\u00edveis). Potencial estimado: ' +
+      fmtBRL(p.t5.vaar_potencial) + '/ano se cumprir as 5 condicionalidades. 448 de 645 munic\u00edpios de SP tamb\u00e9m n\u00e3o recebem.';
+  } else {
+    vaarEl.classList.remove('show');
+  }
+
+  // Cards
+  document.getElementById('resultCards').innerHTML = `
+    <div class="r-card"><div class="r-label">Receita FUNDEB Atual</div><div class="r-val">${fmtBRL(rec)}</div></div>
+    <div class="r-card"><div class="r-label">Potencial N\u00e3o Captado</div><div class="r-val green">${fmtBRL(p.pot_total_novo)}</div></div>
+    <div class="r-card"><div class="r-label">Categorias Ativas</div><div class="r-val blue">${p.n_ativas} / 15</div></div>
+    <div class="r-card"><div class="r-label">Categorias Faltantes</div><div class="r-val orange">${p.n_faltantes}</div></div>
+    <div class="r-card"><div class="r-label">Recebe VAAR</div><div class="r-val ${p.t5.recebe_vaar?'green':'orange'}">${p.t5.recebe_vaar?'SIM':'N\u00c3O'}</div></div>
+    <div class="r-card"><div class="r-label">Tempo Integral</div><div class="r-val ${p.t6.pct_integral>=50?'green':'orange'}">${fmtPct(p.t6.pct_integral)}</div></div>`;
+
+  // Tiers
+  const tiers = [
+    { name: 'T1 - Expans\u00e3o VAAF', val: p.pot_t1, color: '#2E7D32', desc: 'Novas categorias de matr\u00edcula' },
+    { name: 'T2 - Convers\u00e3o Integral', val: p.pot_t2, color: '#388E3C', desc: 'Parcial para tempo integral' },
+    { name: 'T3 - AEE Dupla Matr\u00edcula', val: p.pot_t3, color: '#43A047', desc: 'Ed. Especial com AEE' },
+    { name: 'T4 - Reclassifica\u00e7\u00e3o', val: p.pot_t4, color: '#4CAF50', desc: 'Campo (+15%) / Ind (+40%)' },
+    { name: 'T5 - VAAR Federal', val: p.pot_t5_vaar, color: '#66BB6A', desc: '5 condicionalidades MEC' },
+    { name: 'T6 - EC 135 + BNCC', val: p.pot_t6_4pct || 0, color: '#E8A838', desc: '4% tempo integral + curr\u00edculo' },
+  ];
+  const maxTier = Math.max(...tiers.map(t => t.val), 1);
+  document.getElementById('tiersContent').innerHTML = tiers.filter(t => t.val > 0).map(t => `
+    <div class="tier-row">
+      <div class="tier-name">${t.name}<br><span style="font-size:0.72rem;color:var(--text3);font-weight:400">${t.desc}</span></div>
+      <div class="tier-bar-outer"><div class="tier-bar-fill" style="width:${Math.max(2,t.val/maxTier*100)}%;background:${t.color}"></div></div>
+      <div class="tier-val" style="color:${t.color}">${fmtBRL(t.val)}</div>
+    </div>`).join('') + `
+    <div class="tier-row" style="border-top:2px solid var(--border);padding-top:12px;margin-top:8px">
+      <div class="tier-name" style="font-weight:700;font-size:1rem">TOTAL</div>
+      <div class="tier-bar-outer"></div>
+      <div class="tier-val" style="color:var(--accent2);font-size:1.1rem;font-weight:700">${fmtBRL(p.pot_total_novo)}</div>
+    </div>`;
+
+  // Strategies
+  document.getElementById('stratsContent').innerHTML = (p.estrategias || []).slice(0, 6).map(e => `
+    <div class="strat-item">
+      <span class="strat-badge strat-badge-${e.impacto}">${e.impacto.toUpperCase()}</span>
+      <span class="strat-tier">${e.tier}</span>
+      <b>${e.titulo}</b>
+      <div class="strat-desc">${e.descricao}</div>
+    </div>`).join('');
+
+  document.getElementById('resultSection').classList.add('show');
+  document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+fetch('data.json')
+  .then(r => r.json())
+  .then(raw => {
+    DATA = raw.municipios;
+    console.log(DATA.length + ' munic\u00edpios carregados');
+  })
+  .catch(err => console.error('Erro ao carregar dados:', err));
+</script>
+
+</body>
+</html>
