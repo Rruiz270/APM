@@ -26,6 +26,8 @@ TODAY = datetime.now().strftime("%d/%m/%Y")
 def fmt(v):
     if v is None:
         return "–"
+    if abs(v) >= 1e9:
+        return f"R$ {v/1e9:,.1f}B".replace(",", "X").replace(".", ",").replace("X", ".")
     if abs(v) >= 1e6:
         return f"R$ {v/1e6:,.1f}M".replace(",", "X").replace(".", ",").replace("X", ".")
     return f"R$ {v:,.0f}".replace(",", "X").replace(".", ",").replace("X", ".")
@@ -78,16 +80,6 @@ def generate_1page_html(mun, rank_pos, total_muns):
             <b>DESTAQUE:</b> {mun['nome']} recebe VAAR: {fmt(t5['vaar_atual'])}. Manter compliance.
         </div>"""
 
-    # Top 3 strategies
-    strats = p.get("estrategias", [])[:3]
-    strat_html = ""
-    for e in strats:
-        imp_color = {"alto": "#0D7377", "medio": "#E8A838", "baixo": "#718096"}.get(e["impacto"], "#718096")
-        strat_html += f"""<div class="strat">
-            <span class="strat-badge" style="color:{imp_color}">{e['impacto'].upper()}</span>
-            <b>{e['titulo']}</b> — <span class="strat-desc">{e['descricao']}</span>
-        </div>"""
-
     html = f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -120,25 +112,7 @@ body {{ font-family: 'Inter', -apple-system, sans-serif; font-size: 8.5pt; color
 .header .logos {{
     display: flex; align-items: center; gap: 3mm; margin-bottom: 3mm;
 }}
-/* APM pill-shape logo (CSS) */
-.apm-pill {{
-    display: inline-flex; align-items: center; height: 12mm; border-radius: 50px;
-    overflow: hidden; flex-shrink: 0;
-}}
-.apm-pill .apm-t {{
-    background: linear-gradient(135deg, #0D7377, #11998E);
-    color: #fff; font-weight: 800; font-size: 14pt; letter-spacing: 1.5pt;
-    padding: 0 4mm 0 5mm; height: 100%; display: flex; align-items: center;
-}}
-.apm-pill .apm-s {{
-    background: linear-gradient(135deg, #1B8A5C, #0F6B3A);
-    height: 100%; padding: 0 1.5mm; display: flex; align-items: center;
-    border-left: 0.5mm solid rgba(255,255,255,0.25);
-}}
-.apm-pill .apm-s img {{
-    height: 9mm; width: 9mm; border-radius: 50%; border: 0.5mm solid rgba(255,255,255,0.5);
-    background: transparent; padding: 0;
-}}
+.header .logos .apm-img {{ height: 12mm; }}
 .header .logos .partner {{ font-size: 7pt; opacity: 0.8; margin-left: 2mm; }}
 .header .logos .partner b {{ display: block; font-size: 8pt; opacity: 1; }}
 .header h1 {{ font-family: 'Source Serif 4', serif; font-size: 18pt; font-weight: 700; line-height: 1.2; }}
@@ -152,8 +126,8 @@ body {{ font-family: 'Inter', -apple-system, sans-serif; font-size: 8.5pt; color
     background: #F7FAFC; border: 0.3mm solid #E2E8F0; border-radius: 2mm;
     padding: 2.5mm; text-align: center;
 }}
-.summary-card .label {{ font-size: 6pt; color: #718096; text-transform: uppercase; letter-spacing: 0.3pt; font-weight: 600; }}
-.summary-card .val {{ font-size: 11pt; font-weight: 700; margin-top: 0.5mm; }}
+.summary-card .label {{ font-size: 6pt; color: #718096; text-transform: uppercase; letter-spacing: 0.3pt; font-weight: 600; white-space: nowrap; }}
+.summary-card .val {{ font-size: 10pt; font-weight: 700; margin-top: 0.5mm; white-space: nowrap; }}
 .summary-card .val.green {{ color: #0D7377; }}
 .summary-card .val.orange {{ color: #E8A838; }}
 .summary-card .val.red {{ color: #D4553A; }}
@@ -181,9 +155,26 @@ h2 {{
 }}
 .success-box b {{ color: #0D7377; }}
 
-.strat {{ padding: 1.5mm 0; border-bottom: 0.2mm solid #EDF0F4; font-size: 7.5pt; }}
-.strat-badge {{ font-size: 6pt; font-weight: 700; margin-right: 1mm; }}
-.strat-desc {{ color: #718096; font-size: 7pt; }}
+.cta-footer {{
+    background: #0B6669;
+    color: #fff; border-radius: 3mm; padding: 6mm 8mm; margin-top: 4mm;
+    text-align: center;
+}}
+.cta-footer h3 {{
+    font-family: 'Source Serif 4', serif; font-size: 11pt; font-weight: 700;
+    color: #00E5A0; margin-bottom: 2mm;
+}}
+.cta-footer .cta-sub {{
+    font-size: 8pt; opacity: 0.9; margin-bottom: 4mm;
+}}
+.cta-footer .cta-pills {{
+    display: flex; justify-content: center; gap: 3mm; flex-wrap: wrap;
+}}
+.cta-footer .cta-pill {{
+    display: inline-block; border: 0.4mm solid rgba(255,255,255,0.4);
+    padding: 1.5mm 4mm; border-radius: 50px; font-size: 7.5pt; font-weight: 500;
+    color: rgba(255,255,255,0.9);
+}}
 
 .two-col {{ display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }}
 
@@ -203,10 +194,7 @@ h2 {{
 <div class="header">
     <div class="header-left">
         <div class="logos">
-            <div class="apm-pill">
-                <div class="apm-t">APM</div>
-                <div class="apm-s"><img src="https://apaulista.org.br/wp-content/uploads/2023/10/logo.png" alt="APM"></div>
-            </div>
+            <img src="file://{os.path.join(BASE_DIR, 'assets', 'apm-logo-pill.png')}" alt="APM" class="apm-img">
             <div class="partner">
                 <b>Associação Paulista de Municípios</b>
                 Parceria técnica: Instituto i10
@@ -279,10 +267,19 @@ h2 {{
 
 {vaar_html}
 
-<h2>Recomendações Priorizadas</h2>
-{strat_html}
+<div class="cta-footer">
+    <h3>A APM e o Instituto i10 podem implementar este plano para {mun['nome']}</h3>
+    <div class="cta-sub">Consultoria especializada: Tecnologia · Dados · Suporte Jurídico · BNCC Computação</div>
+    <div class="cta-pills">
+        <span class="cta-pill">Diagnóstico Completo</span>
+        <span class="cta-pill">Compliance VAAR</span>
+        <span class="cta-pill">Busca Ativa AEE</span>
+        <span class="cta-pill">Suporte Jurídico</span>
+        <span class="cta-pill">BNCC Computação</span>
+    </div>
+</div>
 
-<div style="text-align:center;margin-top:4mm;font-size:6.5pt;color:#718096">
+<div style="text-align:center;margin-top:3mm;font-size:6.5pt;color:#718096">
     Relatório gerado em {TODAY} · Dados: MEC/FNDE FUNDEB 2026 (parâmetros definitivos)
 </div>
 

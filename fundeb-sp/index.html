@@ -21,27 +21,9 @@
 body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: #1A202C; line-height: 1.6; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-/* ===== APM PILL-SHAPE LOGO (CSS — matches congress branding) ===== */
-.apm-pill {
-  display: inline-flex; align-items: center; height: 56px; border-radius: 50px;
-  overflow: hidden; flex-shrink: 0; box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-}
-.apm-pill .apm-t {
-  background: linear-gradient(135deg, #0D7377 0%, #11998E 100%);
-  color: #fff; font-weight: 800; font-size: 1.5rem; letter-spacing: 2px;
-  padding: 0 20px 0 24px; height: 100%; display: flex; align-items: center;
-}
-.apm-pill .apm-s {
-  background: linear-gradient(135deg, #1B8A5C 0%, #0F6B3A 100%);
-  height: 100%; padding: 0 8px; display: flex; align-items: center;
-  border-left: 2px solid rgba(255,255,255,0.25);
-}
-.apm-pill .apm-s img {
-  height: 42px; width: 42px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.5);
-}
-.apm-pill.sm { height: 40px; box-shadow: none; }
-.apm-pill.sm .apm-t { font-size: 1.1rem; padding: 0 14px 0 18px; }
-.apm-pill.sm .apm-s img { height: 30px; width: 30px; }
+/* ===== APM LOGO ===== */
+.apm-logo { height: 56px; flex-shrink: 0; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2)); }
+.apm-logo.sm { height: 36px; filter: none; }
 
 /* ===== HERO ===== */
 .hero {
@@ -263,10 +245,7 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); c
   <div class="hero-skyline"></div>
   <div class="container hero-inner">
     <div class="hero-top">
-      <div class="apm-pill">
-        <div class="apm-t">APM</div>
-        <div class="apm-s"><img src="/assets/apm-logo-site.png" alt="Associa&ccedil;&atilde;o Paulista de Munic&iacute;pios"></div>
-      </div>
+      <img src="apm-logo-pill-web.png" alt="APM — Associa&ccedil;&atilde;o Paulista de Munic&iacute;pios" class="apm-logo">
       <div class="hero-partner">
         <b>Parceria t&eacute;cnica</b>
         Instituto i10
@@ -402,10 +381,7 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); c
   <div class="footer-skyline"></div>
   <div class="footer-content">
     <div class="footer-logos">
-      <div class="apm-pill sm">
-        <div class="apm-t">APM</div>
-        <div class="apm-s"><img src="/assets/apm-logo-site.png" alt="APM"></div>
-      </div>
+      <img src="apm-logo-pill-web.png" alt="APM" class="apm-logo sm">
     </div>
     <div class="footer-tagline">A For&ccedil;a do Municipalismo</div><br>
     <b>Associa&ccedil;&atilde;o Paulista de Munic&iacute;pios</b> &mdash; Parceria t&eacute;cnica: Instituto i10<br>
