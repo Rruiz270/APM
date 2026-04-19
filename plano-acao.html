@@ -715,6 +715,96 @@ tbody tr:last-child td {
   color: var(--amber);
 }
 
+/* ==================== OWNER BADGES ==================== */
+.owner-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: 50px; font-size: 0.7rem;
+  font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+  vertical-align: middle;
+}
+.owner-apm {
+  background: rgba(13,115,119,0.1); color: var(--teal);
+  border: 1px solid rgba(13,115,119,0.2);
+}
+.owner-i10 {
+  background: rgba(10,36,99,0.08); color: #0A2463;
+  border: 1px solid rgba(10,36,99,0.15);
+}
+.owner-fred {
+  background: rgba(234,88,12,0.08); color: var(--orange);
+  border: 1px solid rgba(234,88,12,0.15);
+}
+.owner-both {
+  background: linear-gradient(135deg, rgba(13,115,119,0.08), rgba(10,36,99,0.08));
+  color: var(--teal-dark); border: 1px solid rgba(13,115,119,0.15);
+}
+
+/* Responsibility cards */
+.resp-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 28px 0;
+}
+.resp-column { }
+.resp-column-title {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 20px; border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  font-weight: 700; font-size: 0.95rem; color: #fff;
+}
+.resp-column-title.apm-col { background: var(--teal); }
+.resp-column-title.i10-col { background: #0A2463; }
+.resp-column-title img { height: 28px; border-radius: 6px; }
+.resp-items {
+  background: var(--card); border: 1px solid var(--border-light);
+  border-top: none; border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+.resp-item {
+  padding: 14px 20px; border-bottom: 1px solid var(--border-light);
+  font-size: 0.88rem; display: flex; align-items: center; gap: 10px;
+}
+.resp-item:last-child { border-bottom: none; }
+.resp-item .resp-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+/* Enhanced flow */
+.flow-enhanced {
+  background: var(--card); border-radius: var(--radius);
+  padding: 32px; margin: 24px 0; box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-light);
+}
+.flow-row {
+  display: flex; align-items: stretch; gap: 0; margin: 12px 0;
+}
+.flow-node {
+  flex: 1; text-align: center; padding: 16px 12px; position: relative;
+  border-radius: var(--radius-sm);
+}
+.flow-node .flow-label {
+  font-weight: 700; font-size: 0.85rem; margin-bottom: 6px;
+}
+.flow-node .flow-detail {
+  font-size: 0.75rem; opacity: 0.8; line-height: 1.4;
+}
+.flow-node .flow-owner {
+  margin-top: 8px;
+}
+.flow-connector {
+  display: flex; align-items: center; justify-content: center;
+  width: 40px; flex-shrink: 0; color: var(--text3); font-size: 1.4rem;
+}
+.flow-node.node-apm { background: rgba(13,115,119,0.06); border: 1px solid rgba(13,115,119,0.15); }
+.flow-node.node-i10 { background: rgba(10,36,99,0.06); border: 1px solid rgba(10,36,99,0.12); }
+.flow-node.node-fred { background: rgba(234,88,12,0.06); border: 1px solid rgba(234,88,12,0.12); }
+.flow-node.node-both { background: rgba(13,115,119,0.04); border: 1px solid rgba(13,115,119,0.1); }
+.flow-node.node-convert {
+  background: linear-gradient(135deg, rgba(0,229,160,0.08), rgba(27,138,92,0.08));
+  border: 1px solid rgba(0,229,160,0.2);
+}
+
+@media (max-width: 768px) {
+  .resp-grid { grid-template-columns: 1fr; }
+  .flow-row { flex-direction: column; gap: 8px; }
+  .flow-connector { width: auto; height: 30px; transform: rotate(90deg); }
+}
+
 /* ==================== FOOTER ==================== */
 .footer {
   background: linear-gradient(135deg, #082F30 0%, var(--teal-dark) 30%, var(--teal) 60%, var(--teal-light) 100%);
@@ -927,7 +1017,7 @@ tbody tr:last-child td {
       <div class="timeline-item">
         <div class="tl-date">21-25 de Abril 2026</div>
         <div class="tl-title">Disparo em Massa &mdash; Fase 1</div>
-        <div class="tl-desc">Envio de e-mail oficial (APM) + WhatsApp com PDF individualizado para todos os 645 prefeitos é secretários de educação.</div>
+        <div class="tl-desc">Envio de e-mail oficial (APM) + WhatsApp com PDF individualizado para todos os 645 prefeitos e secretários de educação.</div>
       </div>
       <div class="timeline-item">
         <div class="tl-date">22 Abril &mdash; 26 Maio 2026</div>
@@ -971,11 +1061,11 @@ tbody tr:last-child td {
 <!-- ==================== 3. FASE 1 ==================== -->
 <section>
   <div class="container">
-    <h2>3. Fase 1 &mdash; FUNDEB + Censo Escolar (ate 27/05)</h2>
+    <h2>3. Fase 1 &mdash; FUNDEB + Censo Escolar (até 27/05)</h2>
 
     <div class="phase-card phase1">
       <div class="phase-header">
-        <div class="phase-title">3.1 Comunicação é Disparo em Massa</div>
+        <div class="phase-title">3.1 Comunicação e Disparo em Massa</div>
         <span class="phase-date">Semana 21-25 Abril</span>
       </div>
       <p style="margin-bottom:16px;color:var(--text2)">Envio coordenado para os <b>645 municípios</b> de SP, atingindo tanto prefeitos quanto secretários de educação.</p>
@@ -1005,12 +1095,12 @@ tbody tr:last-child td {
 
       <h3>Materiais de apoio</h3>
       <ul class="checklist">
-        <li>PDF resumo individualizado por município (645 PDFs) &mdash; white-label APM + i10</li>
-        <li>Landing Page com busca por município (white-label APM + i10)</li>
-        <li>Modelo de e-mail oficial para prefeitos</li>
-        <li>Modelo de e-mail oficial para secretários de educação</li>
-        <li>Script de mensagem WhatsApp para Fred</li>
-        <li>Apresentação para encontros presenciais (consórcios APM)</li>
+        <li class="done">PDF resumo individualizado por município (645 PDFs) <span class="owner-badge owner-i10">i10</span></li>
+        <li class="done">Landing Page com busca por município <span class="owner-badge owner-i10">i10</span></li>
+        <li class="done">Modelo de e-mail oficial para prefeitos <span class="owner-badge owner-i10">i10</span></li>
+        <li class="done">Modelo de e-mail oficial para secretários de educação <span class="owner-badge owner-i10">i10</span></li>
+        <li class="done">Script de mensagem WhatsApp para Fred <span class="owner-badge owner-i10">i10</span></li>
+        <li>Apresentação para encontros presenciais (consórcios APM) <span class="owner-badge owner-both">APM + i10</span></li>
       </ul>
     </div>
 
@@ -1027,7 +1117,7 @@ tbody tr:last-child td {
           <div class="org-who">Ex-Secretário de Educação de Ribeirão Preto</div>
           <div class="org-tasks">
             &#8226; Ligações para secretários de educação<br>
-            &#8226; Credibilidade técnica é institucional<br>
+            &#8226; Credibilidade técnica e institucional<br>
             &#8226; Foco nos municípios de maior potencial
           </div>
         </div>
@@ -1043,16 +1133,38 @@ tbody tr:last-child td {
       </div>
 
       <h3>Fluxo de Conversão</h3>
-      <div class="flow-diagram">
-        <span class="flow-step" style="background:var(--teal)">Disparo (e-mail + WhatsApp)</span>
-        <span class="flow-arrow">&rarr;</span>
-        <span class="flow-step" style="background:var(--orange)">Mobilização (ligações)</span>
-        <span class="flow-arrow">&rarr;</span>
-        <span class="flow-step" style="background:var(--teal-dark)">Aceite do Prefeito/Secretário</span>
-        <span class="flow-arrow">&rarr;</span>
-        <span class="flow-step" style="background:var(--teal-light)">Repasse para i10 (Venda)</span>
-        <span class="flow-arrow">&rarr;</span>
-        <span class="flow-step" style="background:linear-gradient(135deg, var(--green), var(--accent));color:var(--text)">Consultoria ativa</span>
+      <div class="flow-enhanced">
+        <div class="flow-row">
+          <div class="flow-node node-apm">
+            <div class="flow-label">1. Disparo em Massa</div>
+            <div class="flow-detail">E-mail oficial + WhatsApp com PDF individualizado</div>
+            <div class="flow-owner"><span class="owner-badge owner-apm">APM</span> <span class="owner-badge owner-fred">Fred</span></div>
+          </div>
+          <div class="flow-connector">&rarr;</div>
+          <div class="flow-node node-apm">
+            <div class="flow-label">2. Mobilização Ativa</div>
+            <div class="flow-detail">Ligações telefônicas para municípios sem resposta</div>
+            <div class="flow-owner"><span class="owner-badge owner-apm">APM</span></div>
+          </div>
+          <div class="flow-connector">&rarr;</div>
+          <div class="flow-node node-convert">
+            <div class="flow-label">3. Aceite</div>
+            <div class="flow-detail">Prefeito ou Secretário demonstra interesse</div>
+            <div class="flow-owner"><span class="owner-badge owner-both">APM + i10</span></div>
+          </div>
+          <div class="flow-connector">&rarr;</div>
+          <div class="flow-node node-i10">
+            <div class="flow-label">4. Venda</div>
+            <div class="flow-detail">Repasse para equipe i10 — proposta e contrato</div>
+            <div class="flow-owner"><span class="owner-badge owner-i10">i10</span></div>
+          </div>
+          <div class="flow-connector">&rarr;</div>
+          <div class="flow-node node-i10">
+            <div class="flow-label">5. Consultoria</div>
+            <div class="flow-detail">Diagnóstico + implementação + suporte jurídico</div>
+            <div class="flow-owner"><span class="owner-badge owner-i10">i10</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="alert success">
@@ -1065,12 +1177,12 @@ tbody tr:last-child td {
         <div class="phase-title">3.3 Encontros Presenciais &mdash; Consórcios APM</div>
         <span class="phase-date">Maio 2026</span>
       </div>
-      <p style="color:var(--text2)">Participação nos encontros regionais dos consórcios municipais organizados pela APM. Apresentação do diagnóstico FUNDEB é da consultoria i10 para grupos de prefeitos é secretários.</p>
+      <p style="color:var(--text2)">Participação nos encontros regionais dos consórcios municipais organizados pela APM. Apresentação do diagnóstico FUNDEB e da consultoria i10 para grupos de prefeitos e secretários.</p>
       <ul class="checklist" style="margin-top:16px">
         <li>Identificação dos próximos encontros de consórcios da APM</li>
         <li>Preparação de apresentação específica por região</li>
         <li>Material impresso com dados dos municípios da região</li>
-        <li>Coleta de contatos é agendamento de reuniões individuais</li>
+        <li>Coleta de contatos e agendamento de reuniões individuais</li>
       </ul>
     </div>
 
@@ -1086,7 +1198,7 @@ tbody tr:last-child td {
             <tr><th>Entrega</th><th>Descrição</th></tr>
           </thead>
           <tbody>
-            <tr><td><b>Diagnóstico Completo</b></td><td>Relatório detalhado com as 6 alavancas, potencial total é plano de ação personalizado</td></tr>
+            <tr><td><b>Diagnóstico Completo</b></td><td>Relatório detalhado com as 6 alavancas, potencial total e plano de ação personalizado</td></tr>
             <tr><td><b>Suporte Jurídico</b></td><td>Orientação sobre compliance VAAR, formalização de convênios, resoluções CME</td></tr>
             <tr><td><b>Implementação Assistida</b></td><td>Acompanhamento na execução das ações (registro no Censo, abertura de turmas, AEE)</td></tr>
             <tr><td><b>Plataforma de Inteligência</b></td><td>Acesso ao sistema BNCC-CAPTACAO para monitoramento contínuo</td></tr>
@@ -1108,7 +1220,7 @@ tbody tr:last-child td {
         <div class="phase-title">4.1 Segunda Onda de Comunicação</div>
         <span class="phase-date">Julho 2026</span>
       </div>
-      <p style="margin-bottom:16px;color:var(--text2)">Foco nos municípios que <b>nao aderiram na Fase 1</b>. Mensagem de urgência: já perderam a janela do Censo, mas ainda podem captar via BNCC Computação.</p>
+      <p style="margin-bottom:16px;color:var(--text2)">Foco nos municípios que <b>não aderiram na Fase 1</b>. Mensagem de urgência: já perderam a janela do Censo, mas ainda podem captar via BNCC Computação.</p>
 
       <h3>Estratégia de Comunicação Fase 2</h3>
       <div class="table-wrap">
@@ -1126,7 +1238,7 @@ tbody tr:last-child td {
       </div>
 
       <div class="alert danger">
-        <div><b>Argumento chave:</b> BNCC Computação é obrigatória para 2026. Municípios sem implementação perdem acesso a recursos específicos em 2027 é ficam em débito com o MEC.</div>
+        <div><b>Argumento chave:</b> BNCC Computação é obrigatória para 2026. Municípios sem implementação perdem acesso a recursos específicos em 2027 e ficam em débito com o MEC.</div>
       </div>
     </div>
   </div>
@@ -1137,24 +1249,38 @@ tbody tr:last-child td {
   <div class="container">
     <h2>5. Divisão de Responsabilidades</h2>
 
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Atividade</th><th style="text-align:center">APM</th><th style="text-align:center">Instituto i10</th><th style="text-align:center">Fred</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>E-mail oficial para prefeitos/secretários</td><td style="text-align:center;color:var(--teal);font-weight:700">&#10003;</td><td></td><td></td></tr>
-          <tr><td>Landing Page white-label</td><td></td><td style="text-align:center;color:var(--teal-light);font-weight:700">&#10003;</td><td></td></tr>
-          <tr><td>PDFs individualizados por município</td><td></td><td style="text-align:center;color:var(--teal-light);font-weight:700">&#10003;</td><td></td></tr>
-          <tr><td>WhatsApp individual com PDFs</td><td></td><td></td><td style="text-align:center;font-weight:700">&#10003;</td></tr>
-          <tr><td>Ligações de mobilização</td><td style="text-align:center;color:var(--teal);font-weight:700">&#10003;</td><td></td><td></td></tr>
-          <tr><td>Encontros presenciais (consórcios)</td><td style="text-align:center;color:var(--teal);font-weight:700">&#10003;</td><td style="text-align:center;color:var(--teal-light);font-weight:700">&#10003;</td><td></td></tr>
-          <tr><td>Venda da consultoria (após aceite)</td><td></td><td style="text-align:center;color:var(--teal-light);font-weight:700">&#10003;</td><td></td></tr>
-          <tr><td>Execucao da consultoria FUNDEB</td><td></td><td style="text-align:center;color:var(--teal-light);font-weight:700">&#10003;</td><td></td></tr>
-          <tr><td>Suporte jurídico</td><td></td><td style="text-align:center;color:var(--teal-light);font-weight:700">&#10003;</td><td></td></tr>
-          <tr><td>Consultoria BNCC Computação</td><td></td><td style="text-align:center;color:var(--teal-light);font-weight:700">&#10003;</td><td></td></tr>
-        </tbody>
-      </table>
+    <div class="resp-grid">
+      <div class="resp-column">
+        <div class="resp-column-title apm-col">
+          <img src="/fundeb-sp/apm-logo-pill-web.png" alt="APM" style="height:24px;background:#fff;padding:3px 6px;border-radius:4px;">
+          APM — Mobilização e Alcance
+        </div>
+        <div class="resp-items">
+          <div class="resp-item"><span class="resp-icon">&#9993;</span> E-mail oficial para prefeitos e secretários</div>
+          <div class="resp-item"><span class="resp-icon">&#128222;</span> Ligações de mobilização (ex-Secretário + equipe)</div>
+          <div class="resp-item"><span class="resp-icon">&#127979;</span> Encontros presenciais nos consórcios municipais</div>
+          <div class="resp-item"><span class="resp-icon">&#128172;</span> WhatsApp individual com PDFs <span class="owner-badge owner-fred">Fred</span></div>
+          <div class="resp-item"><span class="resp-icon">&#128203;</span> Validação de listas de contatos (e-mail + WhatsApp)</div>
+        </div>
+      </div>
+      <div class="resp-column">
+        <div class="resp-column-title i10-col">
+          Instituto i10 — Tecnologia e Consultoria
+        </div>
+        <div class="resp-items">
+          <div class="resp-item"><span class="resp-icon">&#127760;</span> Landing Page white-label APM + i10</div>
+          <div class="resp-item"><span class="resp-icon">&#128196;</span> 645 PDFs individualizados (resumo + completo)</div>
+          <div class="resp-item"><span class="resp-icon">&#128200;</span> Diagnóstico completo das 6 alavancas FUNDEB</div>
+          <div class="resp-item"><span class="resp-icon">&#9878;</span> Suporte jurídico (VAAR, CME, convênios)</div>
+          <div class="resp-item"><span class="resp-icon">&#128187;</span> Consultoria BNCC Computação</div>
+          <div class="resp-item"><span class="resp-icon">&#128176;</span> Venda e execução da consultoria (após aceite)</div>
+          <div class="resp-item"><span class="resp-icon">&#128202;</span> Plataforma de inteligência e monitoramento</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert info">
+      <div><b>Modelo de parceria:</b> A APM abre as portas (credibilidade institucional + base de contatos dos 645 municípios). O Instituto i10 entrega a tecnologia, dados e consultoria especializada. Fred opera o WhatsApp como canal direto.</div>
     </div>
   </div>
 </section>
@@ -1162,7 +1288,7 @@ tbody tr:last-child td {
 <!-- ==================== 6. METAS ==================== -->
 <section class="alt-bg">
   <div class="container">
-    <h2>6. Metas é Indicadores</h2>
+    <h2>6. Metas e Indicadores</h2>
 
     <div class="stats-row">
       <div class="stat-card">
@@ -1374,7 +1500,7 @@ Atenciosamente,
     <h2>9. Próximos Passos Imediatos</h2>
 
     <ul class="checklist">
-      <li>Validar lista de e-mails dos 645 prefeitos é secretários de educação</li>
+      <li>Validar lista de e-mails dos 645 prefeitos e secretários de educação</li>
       <li>Validar lista de WhatsApp (contatos Fred)</li>
       <li>Revisar é aprovar modelos de comunicação</li>
       <li>Confirmar URL da LP APM + i10 no Vercel</li>
