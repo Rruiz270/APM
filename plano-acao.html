@@ -379,7 +379,7 @@ p { margin-bottom: 16px; }
 /* ==================== STATS ==================== */
 .stats-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   margin: 28px 0;
 }
@@ -414,10 +414,7 @@ p { margin-bottom: 16px; }
 .stat-card .stat-num {
   font-size: 2.4rem;
   font-weight: 900;
-  background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--teal);
   line-height: 1.1;
   margin-bottom: 8px;
   letter-spacing: -0.03em;
@@ -762,7 +759,7 @@ tbody tr:last-child td {
   font-size: 0.88rem; display: flex; align-items: center; gap: 10px;
 }
 .resp-item:last-child { border-bottom: none; }
-.resp-item .resp-icon { font-size: 1.1rem; flex-shrink: 0; }
+.resp-item .resp-icon { font-size: 0.7rem; flex-shrink: 0; color: var(--teal); }
 
 /* Enhanced flow */
 .flow-enhanced {
@@ -885,21 +882,30 @@ tbody tr:last-child td {
 
 /* ==================== PRINT STYLES ==================== */
 @media print {
-  body { font-size: 11pt; background: #fff; }
-  .container { max-width: 100%; padding: 0 20px; }
-  .header { padding: 30px 0 36px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .header h1 { font-size: 1.6rem; }
-  .header .subtitle { font-size: 0.95rem; }
-  section { padding: 28px 0; page-break-inside: avoid; }
-  .phase-card { page-break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
-  .timeline-item { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
-  .stat-card { box-shadow: none; border: 1px solid #ddd; }
+  body { font-size: 10pt; background: #fff; }
+  .container { max-width: 100%; padding: 0 16px; }
+  .header { padding: 24px 0 30px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .header h1 { font-size: 1.5rem; }
+  .header .subtitle { font-size: 0.9rem; }
+  section { padding: 20px 0; }
+  .phase-card { page-break-inside: avoid; box-shadow: none; border: 1px solid #ddd; padding: 20px 20px 20px 24px; margin-bottom: 16px; }
+  .timeline-item { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; padding: 14px 18px; margin-bottom: 16px; }
+  .stat-card { box-shadow: none; border: 1px solid #ddd; padding: 16px 12px; }
+  .stat-card .stat-num { font-size: 1.8rem; }
+  .stats-row { gap: 12px; }
   .msg-template { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
   .table-wrap { box-shadow: none; }
   .stat-card:hover, .phase-card:hover, .timeline-item:hover { transform: none; box-shadow: none; }
-  .footer { padding: 20px 0; }
-  h2 { page-break-after: avoid; }
+  .footer { padding: 16px 0; }
+  h2 { page-break-after: avoid; font-size: 1.4rem; margin-bottom: 16px; padding-bottom: 10px; }
+  h3 { margin: 16px 0 8px; }
   .alert { page-break-inside: avoid; }
+  .flow-enhanced { box-shadow: none; border: 1px solid #ddd; padding: 20px; }
+  .flow-node { padding: 12px 8px; }
+  .resp-grid { gap: 16px; }
+  .resp-items { box-shadow: none; }
+  .org-card { box-shadow: none; border: 1px solid #ddd; }
+  p { margin-bottom: 10px; }
 }
 
 /* ==================== RESPONSIVE ==================== */
@@ -986,7 +992,7 @@ tbody tr:last-child td {
           <tr><td><b>T1 &mdash; Expansão VAAF</b></td><td>Abertura de categorias de matrícula não captadas (EJA, conveniadas, etc.)</td><td style="color:var(--teal);font-weight:700">Alto</td></tr>
           <tr><td><b>T2 &mdash; Conversão Integral</b></td><td>Migração de alunos de jornada parcial para integral (+fator ponderação)</td><td style="color:var(--teal);font-weight:700">Alto</td></tr>
           <tr><td><b>T3 &mdash; AEE Dupla Matrícula</b></td><td>Registro de AEE para alunos de Ed. Especial (dupla contagem FUNDEB)</td><td style="color:var(--teal);font-weight:700">Alto</td></tr>
-          <tr><td><b>T4 &mdash; Reclassificação Localidade</b></td><td>Fator Campo (+15%) é Indígena/Quilombola (+40%)</td><td style="color:var(--amber);font-weight:700">Medio</td></tr>
+          <tr><td><b>T4 &mdash; Reclassificação Localidade</b></td><td>Fator Campo (+15%) e Indígena/Quilombola (+40%)</td><td style="color:var(--amber);font-weight:700">Medio</td></tr>
           <tr><td><b>T5 &mdash; VAAR Federal</b></td><td>Compliance das 5 condicionalidades MEC para receber complementação federal</td><td style="color:var(--red);font-weight:700">Crítico</td></tr>
           <tr><td><b>T6 &mdash; EC 135 + BNCC</b></td><td>4% FUNDEB obrigatório para tempo integral + BNCC Computação</td><td style="color:var(--teal);font-weight:700">Alto</td></tr>
         </tbody>
@@ -1031,8 +1037,8 @@ tbody tr:last-child td {
       </div>
       <div class="timeline-item crítical">
         <div class="tl-date" style="color:var(--red);font-weight:800">27 de Maio 2026 &mdash; CENSO ESCOLAR</div>
-        <div class="tl-title">Data de Referencia do Censo Escolar</div>
-        <div class="tl-desc">Deadline crítico. Todas as matrículas devem estar registradas. Municípios com consultoria i10 já terao ações implementadas.</div>
+        <div class="tl-title">Data de Referência do Censo Escolar</div>
+        <div class="tl-desc">Deadline crítico. Todas as matrículas devem estar registradas. Municípios com consultoria i10 já terão ações implementadas.</div>
       </div>
       <div class="timeline-item">
         <div class="tl-date">Junho &mdash; Julho 2026</div>
@@ -1045,7 +1051,7 @@ tbody tr:last-child td {
         <div class="tl-desc">Nova onda de comunicação focada em municípios que não aderiram na Fase 1. Mensagem: "Já perderam a 1a fase &mdash; não percam R$ X da BNCC Computação 2027".</div>
       </div>
       <div class="timeline-item">
-        <div class="tl-date" style="color:#0891B2;font-weight:800">Agosto 2026 &mdash; BNCC COMPUTACAO</div>
+        <div class="tl-date" style="color:#0891B2;font-weight:800">Agosto 2026 &mdash; BNCC COMPUTAÇÃO</div>
         <div class="tl-title">Prazo BNCC Computação</div>
         <div class="tl-desc">Deadline para implementação da BNCC Computação nas redes municipais. Consultoria i10 garante compliance.</div>
       </div>
@@ -1256,11 +1262,11 @@ tbody tr:last-child td {
           APM — Mobilização e Alcance
         </div>
         <div class="resp-items">
-          <div class="resp-item"><span class="resp-icon">&#9993;</span> E-mail oficial para prefeitos e secretários</div>
-          <div class="resp-item"><span class="resp-icon">&#128222;</span> Ligações de mobilização (ex-Secretário + equipe)</div>
-          <div class="resp-item"><span class="resp-icon">&#127979;</span> Encontros presenciais nos consórcios municipais</div>
-          <div class="resp-item"><span class="resp-icon">&#128172;</span> WhatsApp individual com PDFs <span class="owner-badge owner-fred">Fred</span></div>
-          <div class="resp-item"><span class="resp-icon">&#128203;</span> Validação de listas de contatos (e-mail + WhatsApp)</div>
+          <div class="resp-item"><span class="resp-icon">&#9654;</span> E-mail oficial para prefeitos e secretários</div>
+          <div class="resp-item"><span class="resp-icon">&#9654;</span> Ligações de mobilização (ex-Secretário + equipe)</div>
+          <div class="resp-item"><span class="resp-icon">&#9654;</span> Encontros presenciais nos consórcios municipais</div>
+          <div class="resp-item"><span class="resp-icon">&#9654;</span> WhatsApp individual com PDFs <span class="owner-badge owner-fred">Fred</span></div>
+          <div class="resp-item"><span class="resp-icon">&#9654;</span> Validação de listas de contatos (e-mail + WhatsApp)</div>
         </div>
       </div>
       <div class="resp-column">
@@ -1268,13 +1274,13 @@ tbody tr:last-child td {
           Instituto i10 — Tecnologia e Consultoria
         </div>
         <div class="resp-items">
-          <div class="resp-item"><span class="resp-icon">&#127760;</span> Landing Page white-label APM + i10</div>
-          <div class="resp-item"><span class="resp-icon">&#128196;</span> 645 PDFs individualizados (resumo + completo)</div>
-          <div class="resp-item"><span class="resp-icon">&#128200;</span> Diagnóstico completo das 6 alavancas FUNDEB</div>
-          <div class="resp-item"><span class="resp-icon">&#9878;</span> Suporte jurídico (VAAR, CME, convênios)</div>
-          <div class="resp-item"><span class="resp-icon">&#128187;</span> Consultoria BNCC Computação</div>
-          <div class="resp-item"><span class="resp-icon">&#128176;</span> Venda e execução da consultoria (após aceite)</div>
-          <div class="resp-item"><span class="resp-icon">&#128202;</span> Plataforma de inteligência e monitoramento</div>
+          <div class="resp-item"><span class="resp-icon">&#9654;</span> Landing Page white-label APM + i10</div>
+          <div class="resp-item"><span class="resp-icon">&#9654;</span> 645 PDFs individualizados (resumo + completo)</div>
+          <div class="resp-item"><span class="resp-icon">&#9654;</span> Diagnóstico completo das 6 alavancas FUNDEB</div>
+          <div class="resp-item"><span class="resp-icon">&#9654;</span> Suporte jurídico (VAAR, CME, convênios)</div>
+          <div class="resp-item"><span class="resp-icon">&#9654;</span> Consultoria BNCC Computação</div>
+          <div class="resp-item"><span class="resp-icon">&#9654;</span> Venda e execução da consultoria (após aceite)</div>
+          <div class="resp-item"><span class="resp-icon">&#9654;</span> Plataforma de inteligência e monitoramento</div>
         </div>
       </div>
     </div>
@@ -1430,7 +1436,7 @@ Parceria técnica: Instituto i10</div>
     <h3>8.3 WhatsApp &mdash; Mensagem do Fred (com PDF)</h3>
     <div class="msg-template">
       <div class="msg-header">
-        <span>&#128172; Modelo WhatsApp &mdash; Fred</span>
+        <span>&#9654; Modelo WhatsApp &mdash; Fred</span>
         <span class="copy-hint">Modelo</span>
       </div>
       <div class="msg-body">Olá, [NOME]! Tudo bem?
@@ -1439,9 +1445,9 @@ Aqui é o Fred, da Associação Paulista de Municípios (APM).
 
 Estou enviando um diagnóstico FUNDEB 2026 personalizado para *[MUNICÍPIO]*. Identificamos que o município pode estar deixando de captar *R$ [VALOR]* em recursos FUNDEB.
 
-&#128205; O Censo Escolar é dia *27 de maio* &mdash; após essa data a janela fecha.
+&#10148; O Censo Escolar é dia *27 de maio* &mdash; após essa data a janela fecha.
 
-Segue o relatório em PDF &#128071;
+Segue o relatório em PDF &#8595;
 
 A APM está em parceria com o Instituto i10 oferecendo consultoria especializada para maximizar essa captação. Posso agendar uma conversa rápida para explicar?</div>
     </div>
@@ -1449,7 +1455,7 @@ A APM está em parceria com o Instituto i10 oferecendo consultoria especializada
     <h3>8.4 WhatsApp &mdash; Follow-up (municípios sem resposta)</h3>
     <div class="msg-template">
       <div class="msg-header">
-        <span>&#128172; Modelo WhatsApp &mdash; Follow-up</span>
+        <span>&#9654; Modelo WhatsApp &mdash; Follow-up</span>
         <span class="copy-hint">Modelo</span>
       </div>
       <div class="msg-body">Olá, [NOME]! Aqui é o Fred da APM.
