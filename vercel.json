@@ -2,19 +2,7 @@
   "rewrites": [
     { "source": "/", "destination": "/fundeb-sp/index.html" }
   ],
-  "functions": {
-    "api/download.js": {
-      "memory": 256,
-      "maxDuration": 10
-    }
-  },
   "headers": [
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store" }
-      ]
-    },
     {
       "source": "/(.*)",
       "headers": [
