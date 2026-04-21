@@ -8,3 +8,4 @@ relatorios-apm/
 # Controle local
 controle-disparo.xlsx
 controle-disparo.csv
+node_modules/
