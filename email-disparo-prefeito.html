@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico FUNDEB 2026 — {{MUNICIPIO}}</title>
+</head>
+<body style="margin:0;padding:0;background:#f0f4f8;font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased;">
+
+<!-- WRAPPER -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f0f4f8;padding:24px 0;">
+<tr><td align="center">
+<table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+
+  <!-- HEADER BANNER -->
+  <tr>
+    <td style="padding:0;">
+      <img src="https://apm-fundeb-sp.vercel.app/assets/email-header-banner.png" alt="APM - Associação Paulista de Municípios | Parceria técnica: Instituto i10" width="600" style="display:block;width:100%;height:auto;">
+    </td>
+  </tr>
+
+  <!-- URGENCY BAR -->
+  <tr>
+    <td style="background:#DC2626;padding:10px 30px;text-align:center;">
+      <p style="margin:0;font-size:12px;font-weight:700;color:#fff;letter-spacing:0.5px;text-transform:uppercase;">
+        &#9888; Censo Escolar: 27 de Maio de 2026 &mdash; Ação imediata necessária
+      </p>
+    </td>
+  </tr>
+
+  <!-- BODY -->
+  <tr>
+    <td style="padding:32px 36px 8px;">
+      <p style="font-size:16px;color:#1A202C;line-height:1.7;margin:0 0 20px;">
+        Prezado(a) Prefeito(a) de <b>{{MUNICIPIO}}</b>,
+      </p>
+      <p style="font-size:14px;color:#4A5568;line-height:1.75;margin:0 0 20px;">
+        A <b>Associação Paulista de Municípios (APM)</b>, em parceria com o <b>Instituto i10</b>, realizou um diagnóstico completo do FUNDEB 2026 para todos os 645 municípios de São Paulo.
+      </p>
+      <p style="font-size:14px;color:#4A5568;line-height:1.75;margin:0 0 24px;">
+        Identificamos que <b>{{MUNICIPIO}}</b> está deixando de captar recursos significativos por falhas de gestão, registro e compliance no Censo Escolar.
+      </p>
+    </td>
+  </tr>
+
+  <!-- VALOR DESTAQUE -->
+  <tr>
+    <td style="padding:0 36px 24px;">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-radius:12px;overflow:hidden;">
+        <tr>
+          <td style="background:linear-gradient(135deg,#082F30,#0D7377);padding:28px 30px;text-align:center;">
+            <p style="margin:0 0 4px;font-size:12px;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:1px;font-weight:600;">
+              Potencial não captado em {{MUNICIPIO}}
+            </p>
+            <p style="margin:0 0 8px;font-size:38px;font-weight:900;color:#00E5A0;letter-spacing:-1px;">
+              R$ {{VALOR}}
+            </p>
+            <p style="margin:0;font-size:14px;color:rgba(255,255,255,0.85);">
+              Isso representa <b style="color:#00E5A0;">+{{PERCENTUAL}}%</b> sobre a receita FUNDEB atual do município
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- ALAVANCAS -->
+  <tr>
+    <td style="padding:0 36px 24px;">
+      <p style="font-size:14px;font-weight:700;color:#0D7377;margin:0 0 14px;">As 6 alavancas de captação identificadas:</p>
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:13px;color:#4A5568;">
+        <tr>
+          <td style="padding:8px 12px;background:#f0faf7;border-radius:6px 6px 0 0;border-bottom:1px solid #e8ede9;">
+            <b style="color:#0D7377;">T1</b> Expansão VAAF &mdash; categorias de matrícula não captadas
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:8px 12px;background:#fff;border-bottom:1px solid #f1f5f9;">
+            <b style="color:#0D7377;">T2</b> Conversão para Tempo Integral (+fator ponderação)
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:8px 12px;background:#f0faf7;border-bottom:1px solid #e8ede9;">
+            <b style="color:#0D7377;">T3</b> AEE Dupla Matrícula (dupla contagem FUNDEB)
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:8px 12px;background:#fff;border-bottom:1px solid #f1f5f9;">
+            <b style="color:#0D7377;">T4</b> Reclassificação de Localidade (Campo, Indígena, Quilombola)
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:8px 12px;background:#f0faf7;border-bottom:1px solid #e8ede9;">
+            <b style="color:#DC2626;">T5</b> VAAR Federal &mdash; compliance das 5 condicionalidades MEC
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:8px 12px;background:#fff;border-radius:0 0 6px 6px;">
+            <b style="color:#0D7377;">T6</b> EC 135 + BNCC Computação (4% FUNDEB obrigatório)
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- CTA: BAIXAR PDF -->
+  <tr>
+    <td style="padding:0 36px 8px;" align="center">
+      <p style="font-size:14px;color:#4A5568;line-height:1.7;margin:0 0 20px;text-align:left;">
+        Preparamos um <b>relatório personalizado</b> para {{MUNICIPIO}} com o detalhamento completo de cada alavanca e o potencial de captação:
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding:0 36px 12px;" align="center">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="background:#0D7377;border-radius:50px;padding:16px 40px;box-shadow:0 4px 12px rgba(13,115,119,0.3);">
+            <a href="{{LINK_PDF}}" target="_blank" style="color:#ffffff;text-decoration:none;font-size:15px;font-weight:700;display:inline-block;">
+              &#128196; Baixar Diagnóstico de {{MUNICIPIO}}
+            </a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding:4px 36px 28px;" align="center">
+      <p style="margin:0;font-size:11px;color:#a0aec0;">Arquivo PDF &mdash; Relatório individualizado gerado com dados MEC/FNDE 2026</p>
+    </td>
+  </tr>
+
+  <!-- SEGUNDO CTA -->
+  <tr>
+    <td style="padding:0 36px 28px;" align="center">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="border:2px solid #0D7377;border-radius:50px;padding:12px 32px;">
+            <a href="https://apm-fundeb-sp.vercel.app/fundeb-sp/" target="_blank" style="color:#0D7377;text-decoration:none;font-size:14px;font-weight:700;display:inline-block;">
+              Ver Diagnóstico Interativo Online &#8594;
+            </a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- DEADLINE -->
+  <tr>
+    <td style="padding:0 36px 28px;">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="background:#FEF2F2;border:1px solid #FECACA;border-left:4px solid #DC2626;border-radius:8px;padding:16px 20px;">
+            <p style="margin:0;font-size:13px;color:#991B1B;line-height:1.6;">
+              <b>&#9888; Data crítica:</b> O Censo Escolar será dia <b>27 de maio</b>. Todas as matrículas registradas até essa data determinam a distribuição de recursos FUNDEB para 2026. <b>Cada dia sem ação é recurso perdido.</b>
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- CONSULTORIA -->
+  <tr>
+    <td style="padding:0 36px 28px;">
+      <p style="font-size:14px;color:#4A5568;line-height:1.75;margin:0 0 16px;">
+        A APM e o Instituto i10 estão oferecendo <b>consultoria especializada</b> para maximizar a captação FUNDEB do seu município:
+      </p>
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:13px;color:#4A5568;">
+        <tr>
+          <td style="padding:6px 0;">&#10003; Diagnóstico completo das 6 alavancas</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 0;">&#10003; Suporte jurídico (resoluções CME, convênios, VAAR)</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 0;">&#10003; Implementação assistida antes do Censo</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 0;">&#10003; BNCC Computação (obrigatória 2026)</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 0;">&#10003; Plataforma de inteligência e monitoramento contínuo</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- CONTATO -->
+  <tr>
+    <td style="padding:0 36px 28px;">
+      <p style="font-size:14px;color:#4A5568;line-height:1.75;margin:0 0 16px;">
+        Para agendar uma reunião com nossos especialistas, <b>responda este e-mail</b> ou entre em contato diretamente.
+      </p>
+      <p style="font-size:14px;color:#1A202C;margin:0 0 4px;">Atenciosamente,</p>
+      <p style="font-size:14px;color:#1A202C;margin:0;font-weight:700;">Associação Paulista de Municípios</p>
+      <p style="font-size:13px;color:#718096;margin:2px 0 0;">Em parceria com o Instituto i10</p>
+    </td>
+  </tr>
+
+  <!-- SIGNATURE BANNER -->
+  <tr>
+    <td style="padding:0 36px 24px;">
+      <img src="https://apm-fundeb-sp.vercel.app/assets/email-signature-banner.png" alt="APM + Instituto i10 | Consultoria FUNDEB 2026" width="528" style="display:block;width:100%;height:auto;border-radius:8px;">
+    </td>
+  </tr>
+
+  <!-- FOOTER -->
+  <tr>
+    <td style="background:#f0f4f8;padding:20px 36px;text-align:center;border-top:1px solid #e2e8f0;">
+      <p style="font-size:10px;color:#a0aec0;margin:0 0 4px;">
+        Dados: MEC/FNDE FUNDEB 2026 (parâmetros definitivos) | Relatório gerado em abril de 2026
+      </p>
+      <p style="font-size:10px;color:#a0aec0;margin:0;">
+        Você recebeu este e-mail porque é gestor(a) municipal de um dos 645 municípios de São Paulo.
+      </p>
+    </td>
+  </tr>
+
+</table>
+</td></tr>
+</table>
+
+</body>
+</html>
