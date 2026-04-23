@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia de Disparo — RD Station + RD Conversas | APM + i10</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal: #0D7377; --teal-dark: #0A5C5F; --accent: #00E5A0;
+  --text: #1A202C; --text2: #4A5568; --text3: #718096;
+  --bg: #F8FAFB; --card: #FFFFFF; --border: #E2E8F0;
+  --red: #DC2626; --amber: #D97706; --green: #1B8A5C; --blue: #0A2463;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; font-size: 15px; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 28px; }
+.header {
+  background: linear-gradient(135deg, #082F30, var(--teal-dark), var(--teal));
+  color: #fff; padding: 40px 0;
+}
+.header h1 { font-family: 'Source Serif 4', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; }
+.header p { opacity: 0.8; font-size: 0.95rem; }
+section { padding: 40px 0; }
+section.alt { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+h2 {
+  font-family: 'Source Serif 4', serif; font-size: 1.4rem; font-weight: 700;
+  color: var(--teal); margin-bottom: 20px; padding-bottom: 12px;
+  border-bottom: 3px solid var(--accent); display: inline-block;
+}
+h3 { font-size: 1rem; font-weight: 700; margin: 24px 0 12px; }
+.step-card {
+  background: var(--card); border-radius: 12px; padding: 24px; margin: 16px 0;
+  border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.step-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 50%; background: var(--teal);
+  color: #fff; font-weight: 800; font-size: 0.85rem; margin-right: 12px;
+}
+.step-title { font-weight: 700; font-size: 1rem; display: inline; }
+.step-body { margin-top: 12px; color: var(--text2); font-size: 0.9rem; }
+.field-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin: 16px 0; }
+.field-table th {
+  background: var(--teal); color: #fff; padding: 10px 14px; text-align: left;
+  font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;
+}
+.field-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+.field-table tr:nth-child(even) { background: #F8FAFB; }
+code {
+  background: #F1F5F9; padding: 2px 8px; border-radius: 4px;
+  font-size: 0.82rem; color: var(--teal-dark); font-weight: 600;
+}
+.alert {
+  border-radius: 10px; padding: 16px 20px; margin: 16px 0; font-size: 0.88rem;
+  line-height: 1.65; display: flex; align-items: flex-start; gap: 10px;
+}
+.alert.info { background: rgba(13,115,119,0.05); border: 1px solid rgba(13,115,119,0.15); }
+.alert.info b { color: var(--teal); }
+.alert.warn { background: #FEF2F2; border: 1px solid #FECACA; }
+.alert.warn b { color: var(--red); }
+.alert.success { background: rgba(27,138,92,0.05); border: 1px solid rgba(27,138,92,0.2); }
+.alert.success b { color: var(--green); }
+.whatsapp-box {
+  background: #E5DDD5; border-radius: 12px; padding: 20px;
+  margin: 16px 0; font-size: 0.9rem;
+}
+.whatsapp-msg {
+  background: #DCF8C6; border-radius: 8px; padding: 12px 16px;
+  max-width: 420px; line-height: 1.6; font-size: 0.88rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.whatsapp-msg b { color: #075E54; }
+.footer {
+  background: var(--teal-dark); color: #fff; padding: 24px 0;
+  text-align: center; font-size: 0.78rem; opacity: 0.7;
+}
+@media print {
+  .header { padding: 16px 0; }
+  section { padding: 16px 0; }
+  .step-card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="container">
+    <h1>Guia de Disparo — RD Station Marketing + RD Conversas</h1>
+    <p>Passo a passo para a equipe APM configurar o disparo em massa dos diagnósticos FUNDEB 2026</p>
+  </div>
+</div>
+
+<!-- PARTE 1: RD STATION MARKETING -->
+<section>
+  <div class="container">
+    <h2>Parte 1 — E-mail via RD Station Marketing</h2>
+
+    <div class="step-card">
+      <span class="step-num">1</span>
+      <span class="step-title">Criar os campos personalizados no RD Station</span>
+      <div class="step-body">
+        <p>Antes de importar os contatos, crie estes campos em <b>Configurações → Campos personalizados</b>:</p>
+        <table class="field-table">
+          <thead><tr><th>Nome do campo no RD</th><th>Identificador</th><th>Tipo</th><th>Exemplo</th></tr></thead>
+          <tbody>
+            <tr><td>Município</td><td><code>cf_municipio</code></td><td>Texto</td><td>Campinas</td></tr>
+            <tr><td>Valor Potencial</td><td><code>cf_valor_potencial</code></td><td>Texto</td><td>164.064.152</td></tr>
+            <tr><td>Percentual Ganho</td><td><code>cf_percentual_ganho</code></td><td>Texto</td><td>30,7</td></tr>
+            <tr><td>Matrículas</td><td><code>cf_matriculas</code></td><td>Texto</td><td>62.875</td></tr>
+            <tr><td>Arquivo PDF</td><td><code>cf_arquivo_pdf</code></td><td>Texto</td><td>110_Campinas.pdf</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <span class="step-num">2</span>
+      <span class="step-title">Importar o CSV de contatos</span>
+      <div class="step-body">
+        <p>Vá em <b>Relacionar → Base de Leads → Importar</b> e suba o arquivo <code>disparo-645-municipios.csv</code>.</p>
+        <p style="margin-top:8px">Mapeie as colunas do CSV para os campos do RD:</p>
+        <table class="field-table">
+          <thead><tr><th>Coluna do CSV</th><th>Campo no RD Station</th></tr></thead>
+          <tbody>
+            <tr><td>NOME_PREFEITO</td><td>Nome</td></tr>
+            <tr><td>EMAIL_PREFEITO</td><td>E-mail</td></tr>
+            <tr><td>MUNICIPIO</td><td>cf_municipio</td></tr>
+            <tr><td>VALOR_POTENCIAL</td><td>cf_valor_potencial</td></tr>
+            <tr><td>PERCENTUAL_GANHO</td><td>cf_percentual_ganho</td></tr>
+            <tr><td>MATRICULAS</td><td>cf_matriculas</td></tr>
+            <tr><td>ARQUIVO_PDF</td><td>cf_arquivo_pdf</td></tr>
+          </tbody>
+        </table>
+        <div class="alert info">
+          <div><b>Dica:</b> Para o disparo de secretários, faça uma segunda importação usando EMAIL_SECRETARIO como e-mail e NOME_SECRETARIO como nome, com uma tag/segmentação diferente.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <span class="step-num">3</span>
+      <span class="step-title">Criar o e-mail no RD Station</span>
+      <div class="step-body">
+        <p>Vá em <b>Relacionar → Email → Novo Email</b> e escolha <b>"Colar código HTML"</b>.</p>
+        <p style="margin-top:8px">Cole o conteúdo do arquivo:</p>
+        <ul style="margin:8px 0 0 20px;color:var(--text2)">
+          <li>Para prefeitos: <code>email-rd-prefeito.html</code></li>
+          <li>Para secretários: <code>email-rd-secretario.html</code></li>
+        </ul>
+        <p style="margin-top:12px">As variáveis já estão no formato do RD Station:</p>
+        <table class="field-table">
+          <thead><tr><th>No e-mail</th><th>O que aparece para o prefeito</th></tr></thead>
+          <tbody>
+            <tr><td><code>{{ lead.cf_municipio }}</code></td><td>Campinas</td></tr>
+            <tr><td><code>{{ lead.cf_valor_potencial }}</code></td><td>164.064.152</td></tr>
+            <tr><td><code>{{ lead.cf_percentual_ganho }}</code></td><td>30,7</td></tr>
+            <tr><td><code>{{ lead.cf_arquivo_pdf }}</code></td><td>110_Campinas.pdf (no link do botão)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <span class="step-num">4</span>
+      <span class="step-title">Testar e disparar</span>
+      <div class="step-body">
+        <p>Antes de disparar para os 645:</p>
+        <ul style="margin:8px 0 0 20px;color:var(--text2)">
+          <li><b>Envie um teste</b> para seu próprio e-mail (o RD preenche os campos do seu lead de teste)</li>
+          <li>Verifique se o nome do município, valor e link do PDF estão corretos</li>
+          <li>Clique no botão e confirme que o PDF abre corretamente</li>
+          <li>Depois, dispare para a segmentação de prefeitos</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert warn">
+      <div><b>Importante — Assunto do e-mail:</b><br>
+      Use: <code>[APM] Diagnóstico FUNDEB 2026 — {{ lead.cf_municipio }} pode estar perdendo R$ {{ lead.cf_valor_potencial }}</code><br>
+      O assunto personalizado aumenta significativamente a taxa de abertura.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTE 2: RD CONVERSAS / TALLOS -->
+<section class="alt">
+  <div class="container">
+    <h2>Parte 2 — WhatsApp via RD Conversas (Tallos)</h2>
+
+    <div class="step-card">
+      <span class="step-num">1</span>
+      <span class="step-title">Mensagem padrão para disparo</span>
+      <div class="step-body">
+        <p>Use a coluna <b>TELEFONE_WHATSAPP</b> do CSV e a coluna <b>LINK_PDF</b> para montar o disparo.</p>
+        <p style="margin-top:12px"><b>Modelo de mensagem:</b></p>
+        <div class="whatsapp-box">
+          <div class="whatsapp-msg">
+Olá, <b>{{NOME}}</b>! Tudo bem?
+
+Aqui é a equipe da <b>Associação Paulista de Municípios (APM)</b>.
+
+Realizamos um diagnóstico FUNDEB 2026 para <b>{{MUNICIPIO}}</b> e identificamos que o município pode estar deixando de captar <b>R$ {{VALOR}}</b> em recursos.
+
+&#10148; O Censo Escolar é dia <b>27 de maio</b> — após essa data a janela fecha.
+
+&#128196; <b>Veja o diagnóstico completo:</b>
+{{LINK_PDF}}
+
+A APM está em parceria com o Instituto i10 oferecendo consultoria especializada para maximizar essa captação.
+
+Posso agendar uma conversa rápida para explicar?
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <span class="step-num">2</span>
+      <span class="step-title">Mensagem de follow-up (sem resposta)</span>
+      <div class="step-body">
+        <div class="whatsapp-box">
+          <div class="whatsapp-msg">
+Olá, <b>{{NOME}}</b>! Aqui é da APM novamente.
+
+Enviei o diagnóstico FUNDEB de <b>{{MUNICIPIO}}</b> na semana passada. Já conseguiu dar uma olhada?
+
+Faltam poucos dias para o Censo Escolar (27/05). O município tem <b>R$ {{VALOR}}</b> em potencial não captado.
+
+&#128196; Diagnóstico: {{LINK_PDF}}
+
+Posso ligar em 5 minutos para explicar?
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert info">
+      <div><b>Variáveis no Tallos:</b> O RD Conversas (Tallos) utiliza variáveis no formato <code>{{campo}}</code>. Ao importar os contatos do CSV, mapeie as colunas MUNICIPIO, VALOR_POTENCIAL e LINK_PDF para os campos correspondentes no Tallos.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTE 3: DASHBOARD -->
+<section>
+  <div class="container">
+    <h2>Parte 3 — Dashboard de Acompanhamento</h2>
+
+    <div class="step-card">
+      <span class="step-num">&#10003;</span>
+      <span class="step-title">Acompanhe os downloads em tempo real</span>
+      <div class="step-body">
+        <p>Após o disparo, acompanhe quais municípios estão baixando os PDFs:</p>
+        <p style="margin:12px 0"><b>&#10132; <a href="https://www.institutoi10.com.br/sistemas/apm/dashboard" style="color:var(--teal)">institutoi10.com.br/sistemas/apm/dashboard</a></b></p>
+        <p>O dashboard mostra:</p>
+        <ul style="margin:8px 0 0 20px;color:var(--text2)">
+          <li>Total de downloads</li>
+          <li>Quantos municípios já baixaram (taxa de abertura)</li>
+          <li>Atividade em tempo real (quem baixou, quando)</li>
+          <li>Ranking dos municípios com mais downloads</li>
+          <li>Busca por município específico</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert success">
+      <div><b>Como funciona o tracking:</b> Quando o prefeito/secretário clica em "Baixar Diagnóstico" no e-mail ou no WhatsApp, o link passa por nossa API que registra o download (município, data, hora) e redireciona automaticamente para o PDF. O prefeito não percebe nenhuma diferença — o PDF abre normalmente.</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUMO -->
+<section class="alt">
+  <div class="container">
+    <h2>Resumo — Arquivos para a APM</h2>
+    <table class="field-table">
+      <thead><tr><th>Arquivo</th><th>Para quê</th><th>Onde usar</th></tr></thead>
+      <tbody>
+        <tr><td><code>disparo-645-municipios.csv</code></td><td>Lista dos 645 municípios com dados + links</td><td>Importar no RD Station + Tallos</td></tr>
+        <tr><td><code>email-rd-prefeito.html</code></td><td>Template HTML para prefeitos</td><td>Colar no RD Station Marketing</td></tr>
+        <tr><td><code>email-rd-secretario.html</code></td><td>Template HTML para secretários</td><td>Colar no RD Station Marketing</td></tr>
+        <tr><td><code>guia-disparo-rd-station.html</code></td><td>Este guia de configuração</td><td>Referência para a equipe APM</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="footer">
+  <div class="container">
+    APM + Instituto i10 | Consultoria FUNDEB 2026 | Documento operacional — Abril 2026
+  </div>
+</div>
+
+</body>
+</html>
