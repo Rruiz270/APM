@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { width: 1200px; height: 240px; overflow: hidden; }
+.banner {
+  width: 1200px;
+  height: 240px;
+  background: linear-gradient(135deg, #082F30 0%, #0A5C5F 25%, #0D7377 50%, #11998E 80%, #15B79E 100%);
+  display: flex;
+  align-items: center;
+  padding: 0 60px;
+  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+.banner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    repeating-linear-gradient(60deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 42px),
+    repeating-linear-gradient(-60deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 42px);
+  pointer-events: none;
+}
+.logo {
+  height: 120px;
+  border-radius: 16px;
+  background: #fff;
+  padding: 10px 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 1;
+}
+.divider {
+  width: 2px;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.5), transparent);
+  margin: 0 40px;
+  position: relative;
+  z-index: 1;
+}
+.text {
+  color: #fff;
+  position: relative;
+  z-index: 1;
+}
+.text .title {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+.text .subtitle {
+  font-size: 20px;
+  font-weight: 400;
+  opacity: 0.85;
+  margin-bottom: 8px;
+}
+.text .tag {
+  font-size: 16px;
+  font-weight: 600;
+  color: #00E5A0;
+  letter-spacing: 0.5px;
+}
+</style>
+</head>
+<body>
+<div class="banner">
+  <img class="logo" src="apm-logo-pill-web.png" alt="APM">
+  <div class="divider"></div>
+  <div class="text">
+    <div class="title">Associação Paulista de Municípios</div>
+    <div class="subtitle">Parceria técnica: Instituto i10</div>
+    <div class="tag">Diagnóstico FUNDEB 2026 · Consultoria Especializada</div>
+  </div>
+</div>
+</body>
+</html>

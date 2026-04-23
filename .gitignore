@@ -2,8 +2,8 @@
 .env*.local
 .DS_Store
 
-# PDFs gerados (pesados demais para Git)
-relatorios-apm/
+# PDFs hospedados no Vercel para disparo em massa
+# relatorios-apm/ — rastreados para servir via Vercel
 
 # Controle local
 controle-disparo.xlsx
