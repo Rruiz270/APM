@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard de Downloads — APM + Instituto i10</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal: #0D7377;
+  --teal-dark: #0A5C5F;
+  --teal-light: #11998E;
+  --green: #1B8A5C;
+  --accent: #00E5A0;
+  --text: #1A202C;
+  --text2: #4A5568;
+  --text3: #718096;
+  --bg: #F0F4F8;
+  --card: #FFFFFF;
+  --border: #E2E8F0;
+  --red: #DC2626;
+  --amber: #D97706;
+  --blue: #0A2463;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.header {
+  background: linear-gradient(135deg, #082F30, var(--teal-dark), var(--teal));
+  color: #fff;
+  padding: 24px 0;
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+}
+
+.header-left { display: flex; align-items: center; gap: 16px; }
+
+.header-left img {
+  height: 44px; border-radius: 8px; background: #fff; padding: 4px 8px;
+}
+
+.header-left h1 { font-size: 1.3rem; font-weight: 700; }
+.header-left p { font-size: 0.8rem; opacity: 0.7; }
+
+.header-right { display: flex; align-items: center; gap: 12px; }
+
+.live-dot {
+  width: 10px; height: 10px; border-radius: 50%; background: var(--accent);
+  animation: pulse 2s infinite; display: inline-block;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.refresh-btn {
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+  color: #fff; padding: 8px 16px; border-radius: 8px; cursor: pointer;
+  font-size: 0.8rem; font-weight: 600; transition: background 0.2s;
+}
+
+.refresh-btn:hover { background: rgba(255,255,255,0.25); }
+
+.stats-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 16px; margin: 24px 0;
+}
+
+.stat-card {
+  background: var(--card); border-radius: 12px; padding: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid var(--border);
+  text-align: center; position: relative; overflow: hidden;
+}
+
+.stat-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+
+.stat-card.s1::before { background: var(--teal); }
+.stat-card.s2::before { background: var(--accent); }
+.stat-card.s3::before { background: var(--amber); }
+.stat-card.s4::before { background: var(--red); }
+
+.stat-num {
+  font-size: 2.2rem; font-weight: 900; color: var(--teal);
+  letter-spacing: -1px; line-height: 1.1; margin-bottom: 6px;
+}
+
+.stat-label { font-size: 0.78rem; color: var(--text3); font-weight: 500; }
+
+.content-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;
+}
+
+.panel {
+  background: var(--card); border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.panel-header {
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  font-weight: 700; font-size: 0.9rem; color: var(--teal-dark);
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.panel-body { padding: 0; max-height: 480px; overflow-y: auto; }
+
+.full-width { grid-column: 1 / -1; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+
+thead th {
+  background: #F8FAFB; padding: 10px 16px; text-align: left;
+  font-weight: 600; color: var(--text3); text-transform: uppercase;
+  letter-spacing: 0.04em; font-size: 0.7rem; border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 1;
+}
+
+tbody td {
+  padding: 10px 16px; border-bottom: 1px solid #F1F5F9; vertical-align: middle;
+}
+
+tbody tr:hover { background: rgba(13,115,119,0.03); }
+
+.badge {
+  display: inline-flex; padding: 2px 10px; border-radius: 50px;
+  font-size: 0.7rem; font-weight: 700;
+}
+
+.badge-green { background: rgba(27,138,92,0.1); color: var(--green); }
+.badge-gray { background: #F1F5F9; color: var(--text3); }
+.badge-amber { background: rgba(217,119,6,0.1); color: var(--amber); }
+
+.bar-container {
+  width: 100%; height: 6px; background: #F1F5F9; border-radius: 3px; overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%; border-radius: 3px; transition: width 0.6s ease;
+  background: linear-gradient(90deg, var(--teal), var(--accent));
+}
+
+.activity-item {
+  padding: 12px 20px; border-bottom: 1px solid #F1F5F9;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+
+.activity-item:last-child { border-bottom: none; }
+
+.activity-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--teal);
+  margin-top: 6px; flex-shrink: 0;
+}
+
+.activity-info { flex: 1; }
+.activity-info .muni { font-weight: 700; color: var(--text); font-size: 0.85rem; }
+.activity-info .time { font-size: 0.72rem; color: var(--text3); margin-top: 2px; }
+
+.loading {
+  display: flex; align-items: center; justify-content: center;
+  padding: 60px; color: var(--text3); font-size: 0.9rem;
+}
+
+.loading-spinner {
+  width: 24px; height: 24px; border: 3px solid var(--border);
+  border-top-color: var(--teal); border-radius: 50%;
+  animation: spin 0.8s linear infinite; margin-right: 12px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.search-input {
+  padding: 8px 14px; border: 1px solid var(--border); border-radius: 8px;
+  font-size: 0.82rem; width: 220px; outline: none; font-family: inherit;
+}
+
+.search-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(13,115,119,0.1); }
+
+.empty-state {
+  padding: 48px 24px; text-align: center; color: var(--text3);
+}
+
+.empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 12px; opacity: 0.4; }
+.empty-state p { font-size: 0.88rem; }
+
+.updated-at {
+  text-align: center; padding: 16px; font-size: 0.72rem; color: var(--text3);
+}
+
+@media (max-width: 768px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .content-grid { grid-template-columns: 1fr; }
+  .header-inner { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="header-left">
+        <img src="https://apm-fundeb-sp.vercel.app/fundeb-sp/apm-logo-pill-web.png" alt="APM">
+        <div>
+          <h1>Dashboard de Downloads</h1>
+          <p>Acompanhamento de abertura dos relatórios FUNDEB 2026</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <span class="live-dot"></span>
+        <span style="font-size:0.8rem;opacity:0.8;">Tempo real</span>
+        <button class="refresh-btn" onclick="loadData()">Atualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="stats-grid">
+    <div class="stat-card s1">
+      <div class="stat-num" id="total-downloads">—</div>
+      <div class="stat-label">Downloads totais</div>
+    </div>
+    <div class="stat-card s2">
+      <div class="stat-num" id="municipios-abriram">—</div>
+      <div class="stat-label">Municípios que baixaram</div>
+    </div>
+    <div class="stat-card s3">
+      <div class="stat-num" id="taxa-abertura">—</div>
+      <div class="stat-label">Taxa de abertura</div>
+    </div>
+    <div class="stat-card s4">
+      <div class="stat-num" id="sem-download">—</div>
+      <div class="stat-label">Municípios sem download</div>
+    </div>
+  </div>
+
+  <div class="content-grid">
+    <div class="panel">
+      <div class="panel-header">
+        Atividade recente
+      </div>
+      <div class="panel-body" id="activity-list">
+        <div class="loading"><div class="loading-spinner"></div> Carregando...</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        Top municípios por downloads
+      </div>
+      <div class="panel-body" id="top-list">
+        <div class="loading"><div class="loading-spinner"></div> Carregando...</div>
+      </div>
+    </div>
+
+    <div class="panel full-width">
+      <div class="panel-header">
+        <span>Todos os municípios</span>
+        <input type="text" class="search-input" id="search" placeholder="Buscar município..." oninput="filterTable()">
+      </div>
+      <div class="panel-body" id="full-table" style="max-height:600px;">
+        <div class="loading"><div class="loading-spinner"></div> Carregando...</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="updated-at" id="updated-at"></div>
+</div>
+
+<script>
+let allData = null;
+
+function timeAgo(dateStr) {
+  const now = new Date();
+  const date = new Date(dateStr);
+  const diff = Math.floor((now - date) / 1000);
+  if (diff < 60) return 'agora mesmo';
+  if (diff < 3600) return Math.floor(diff / 60) + ' min atrás';
+  if (diff < 86400) return Math.floor(diff / 3600) + 'h atrás';
+  return date.toLocaleDateString('pt-BR') + ' ' + date.toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'});
+}
+
+function renderStats(data) {
+  document.getElementById('total-downloads').textContent = data.total_downloads.toLocaleString('pt-BR');
+  document.getElementById('municipios-abriram').textContent = data.municipios_com_download + ' / 645';
+  document.getElementById('taxa-abertura').textContent = data.taxa_abertura + '%';
+  document.getElementById('sem-download').textContent = (645 - data.municipios_com_download);
+  document.getElementById('updated-at').textContent = 'Atualizado em ' + new Date(data.atualizado_em).toLocaleString('pt-BR');
+}
+
+function renderActivity(data) {
+  const el = document.getElementById('activity-list');
+  if (!data.ultimos_50 || data.ultimos_50.length === 0) {
+    el.innerHTML = '<div class="empty-state"><div class="empty-icon">&#128202;</div><p>Nenhum download registrado ainda.<br>Os dados aparecem aqui em tempo real após o disparo.</p></div>';
+    return;
+  }
+  el.innerHTML = data.ultimos_50.slice(0, 20).map(item => `
+    <div class="activity-item">
+      <div class="activity-dot"></div>
+      <div class="activity-info">
+        <div class="muni">${item.municipio}</div>
+        <div class="time">${timeAgo(item.ts)}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderTop(data) {
+  const el = document.getElementById('top-list');
+  const top = (data.municipios || []).filter(m => m.count > 0).slice(0, 15);
+  if (top.length === 0) {
+    el.innerHTML = '<div class="empty-state"><div class="empty-icon">&#127942;</div><p>O ranking aparece aqui após os primeiros downloads.</p></div>';
+    return;
+  }
+  const maxCount = top[0]?.count || 1;
+  el.innerHTML = '<table><thead><tr><th>Município</th><th>Downloads</th><th></th></tr></thead><tbody>' +
+    top.map(m => `
+      <tr>
+        <td><b>${m.nome}</b></td>
+        <td><span class="badge badge-green">${m.count}x</span></td>
+        <td style="width:40%">
+          <div class="bar-container">
+            <div class="bar-fill" style="width:${(m.count/maxCount*100).toFixed(0)}%"></div>
+          </div>
+        </td>
+      </tr>
+    `).join('') + '</tbody></table>';
+}
+
+function renderFullTable(data, filter) {
+  const el = document.getElementById('full-table');
+  let munis = data.municipios || [];
+  if (filter) {
+    const q = filter.toLowerCase();
+    munis = munis.filter(m => m.nome.toLowerCase().includes(q));
+  }
+  if (munis.length === 0) {
+    el.innerHTML = '<div class="empty-state"><p>Nenhum município encontrado.</p></div>';
+    return;
+  }
+  el.innerHTML = '<table><thead><tr><th>Município</th><th>Downloads</th><th>Último acesso</th><th>Status</th></tr></thead><tbody>' +
+    munis.map(m => {
+      const status = m.count > 0
+        ? '<span class="badge badge-green">Baixou</span>'
+        : '<span class="badge badge-gray">Pendente</span>';
+      const ultimo = m.ultimo_acesso ? timeAgo(m.ultimo_acesso) : '—';
+      return `<tr>
+        <td><b>${m.nome}</b></td>
+        <td>${m.count > 0 ? m.count + 'x' : '—'}</td>
+        <td style="color:var(--text3)">${ultimo}</td>
+        <td>${status}</td>
+      </tr>`;
+    }).join('') + '</tbody></table>';
+}
+
+function filterTable() {
+  if (!allData) return;
+  const q = document.getElementById('search').value;
+  renderFullTable(allData, q);
+}
+
+async function loadData() {
+  try {
+    const res = await fetch('/api/stats');
+    const data = await res.json();
+    if (data.error) {
+      document.getElementById('activity-list').innerHTML =
+        '<div class="empty-state"><div class="empty-icon">&#9881;</div><p><b>Redis não configurado.</b><br>Crie um KV Store no painel do Vercel para ativar o tracking.</p></div>';
+      return;
+    }
+    allData = data;
+    renderStats(data);
+    renderActivity(data);
+    renderTop(data);
+    renderFullTable(data);
+  } catch (e) {
+    document.getElementById('activity-list').innerHTML =
+      '<div class="empty-state"><div class="empty-icon">&#9888;</div><p>Erro ao carregar dados.<br>' + e.message + '</p></div>';
+  }
+}
+
+loadData();
+setInterval(loadData, 30000);
+</script>
+
+</body>
+</html>

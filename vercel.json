@@ -4,10 +4,26 @@
   ],
   "headers": [
     {
+      "source": "/api/:path*",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store" }
+      ]
+    },
+    {
+      "source": "/dashboard/:path*",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store" }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=3600" }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "api/download.js": { "maxDuration": 10 },
+    "api/stats.js": { "maxDuration": 10 }
+  }
 }
