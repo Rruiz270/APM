@@ -5,37 +5,28 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Parâmetro pdf inválido' });
   }
 
-  const redisUrl = process.env.KV_REST_API_URL;
-  const redisToken = process.env.KV_REST_API_TOKEN;
+  const dbUrl = process.env.POSTGRES_DATABASE_URL_UNPOOLED || process.env.POSTGRES_DATABASE_URL;
 
-  if (redisUrl && redisToken) {
-    const now = new Date().toISOString();
-    const ip = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || 'unknown';
+  if (dbUrl) {
+    const ip = (req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || 'unknown').split(',')[0].trim();
     const ua = req.headers['user-agent'] || 'unknown';
     const municipio = pdf.replace('.pdf', '').replace(/^\d+_/, '').replace(/_/g, ' ');
 
-    const entry = JSON.stringify({ ts: now, ip: ip.split(',')[0].trim(), ua, pdf, municipio });
-
-    const commands = [
-      ['INCR', 'dl_total'],
-      ['INCR', `dl:${pdf}`],
-      ['LPUSH', `dl_log:${pdf}`, entry],
-      ['LPUSH', 'dl_recent', entry],
-      ['LTRIM', 'dl_recent', '0', '999'],
-      ['SADD', 'dl_municipios', pdf],
-    ];
-
+    const host = dbUrl.replace(/.*@/, '').replace(/\/.*/, '');
     try {
-      await fetch(`${redisUrl}/pipeline`, {
+      await fetch(`https://${host}/sql`, {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${redisToken}`,
+          'Neon-Connection-String': dbUrl,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(commands),
+        body: JSON.stringify({
+          query: 'INSERT INTO apm_downloads (pdf, municipio, ip, user_agent) VALUES ($1, $2, $3, $4)',
+          params: [pdf, municipio, ip, ua],
+        }),
       });
     } catch (e) {
-      console.error('Redis error:', e);
+      console.error('DB tracking error:', e);
     }
   }
 
