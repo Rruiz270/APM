@@ -221,8 +221,7 @@ tbody tr:hover { background: rgba(13,115,119,0.03); }
         </div>
       </div>
       <div class="header-right">
-        <span class="live-dot"></span>
-        <span style="font-size:0.8rem;opacity:0.8;">Tempo real</span>
+        <span style="font-size:0.8rem;opacity:0.8;">Atualiza ao clicar</span>
         <button class="refresh-btn" onclick="loadData()">Atualizar</button>
       </div>
     </div>
@@ -374,13 +373,15 @@ function filterTable() {
   renderFullTable(allData, q);
 }
 
+const API_BASE = location.hostname.includes('institutoi10') ? '/sistemas/apm/api' : '/api';
+
 async function loadData() {
   try {
-    const res = await fetch('/api/stats');
+    const res = await fetch(API_BASE + '/stats');
     const data = await res.json();
     if (data.error) {
       document.getElementById('activity-list').innerHTML =
-        '<div class="empty-state"><div class="empty-icon">&#9881;</div><p><b>Redis não configurado.</b><br>Crie um KV Store no painel do Vercel para ativar o tracking.</p></div>';
+        '<div class="empty-state"><div class="empty-icon">&#9881;</div><p><b>Erro:</b> ' + data.error + '</p></div>';
       return;
     }
     allData = data;
@@ -395,7 +396,6 @@ async function loadData() {
 }
 
 loadData();
-setInterval(loadData, 30000);
 </script>
 
 </body>
