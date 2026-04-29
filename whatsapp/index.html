@@ -400,7 +400,11 @@ var mParam = params.get('m');
 
 document.getElementById('loadingState').style.display = 'block';
 
-fetch('https://apm-seven.vercel.app/whatsapp/data-lite.json')
+var dataUrl = location.pathname.indexOf('/apm-lp') === 0
+  ? '/apm-lp/data-lite.json'
+  : '/whatsapp/data-lite.json';
+
+fetch(dataUrl)
   .then(function(r) { return r.json(); })
   .then(function(raw) {
     DATA = raw;
