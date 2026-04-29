@@ -60,6 +60,14 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); c
 }
 .search-input:focus { border-color: var(--teal); box-shadow: 0 0 0 4px rgba(13,115,119,0.1); }
 .search-input::placeholder { color: var(--text3); }
+.search-btn {
+  display: block; width: 100%; margin-top: 10px; padding: 14px; border: none; border-radius: 14px;
+  background: linear-gradient(135deg, #0D7377, #1B8A5C); color: #fff;
+  font-size: 1rem; font-weight: 700; font-family: inherit; cursor: pointer;
+  transition: opacity 0.2s;
+}
+.search-btn:hover { opacity: 0.9; }
+.search-btn:disabled { opacity: 0.5; cursor: default; }
 .suggestions {
   position: absolute; top: 100%; left: 0; right: 0; background: var(--card);
   border: 1px solid var(--border); border-radius: 14px; margin-top: 4px;
@@ -202,6 +210,7 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); c
     <h2>Encontre o seu munic&iacute;pio</h2>
     <div class="search-wrap">
       <input type="text" class="search-input" id="searchInput" placeholder="Digite o nome do munic&iacute;pio..." autocomplete="off">
+      <button type="button" class="search-btn" id="searchBtn">Buscar</button>
       <div class="suggestions" id="suggestions"></div>
     </div>
   </div>
@@ -297,15 +306,17 @@ function norm(s) { return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u03
 
 var input = document.getElementById('searchInput');
 var sugBox = document.getElementById('suggestions');
+var searchBtn = document.getElementById('searchBtn');
+var lastMatches = [];
 
-input.addEventListener('input', function() {
-  var q = norm(this.value);
-  if (q.length < 2 || !DATA) { sugBox.classList.remove('show'); return; }
-  var matches = ALL_KEYS.filter(function(k) {
+function doSearch() {
+  var q = norm(input.value);
+  if (q.length < 2 || !DATA) { sugBox.classList.remove('show'); lastMatches = []; return; }
+  lastMatches = ALL_KEYS.filter(function(k) {
     return norm(DATA[k].n).indexOf(q) >= 0;
   }).slice(0, 10);
-  if (!matches.length) { sugBox.classList.remove('show'); return; }
-  sugBox.innerHTML = matches.map(function(k) {
+  if (!lastMatches.length) { sugBox.classList.remove('show'); return; }
+  sugBox.innerHTML = lastMatches.map(function(k) {
     var d = DATA[k];
     return '<div class="sug-item" data-k="' + k + '">' +
       '<span>' + d.n + '</span>' +
@@ -313,9 +324,51 @@ input.addEventListener('input', function() {
       '</div>';
   }).join('');
   sugBox.classList.add('show');
-  sugBox.querySelectorAll('.sug-item').forEach(function(el) {
-    el.addEventListener('click', function() { selectCity(this.dataset.k); });
-  });
+}
+
+input.addEventListener('input', doSearch);
+
+// Event delegation for suggestion clicks
+sugBox.addEventListener('click', function(e) {
+  var item = e.target.closest('.sug-item');
+  if (item && item.dataset.k) {
+    e.preventDefault();
+    e.stopPropagation();
+    selectCity(item.dataset.k);
+  }
+});
+
+// Touch support for mobile
+sugBox.addEventListener('touchend', function(e) {
+  var item = e.target.closest('.sug-item');
+  if (item && item.dataset.k) {
+    e.preventDefault();
+    selectCity(item.dataset.k);
+  }
+});
+
+// Buscar button - select first match or exact match
+searchBtn.addEventListener('click', function() {
+  var q = norm(input.value);
+  if (!DATA || q.length < 2) return;
+  var exact = ALL_KEYS.find(function(k) { return norm(DATA[k].n) === q; });
+  if (exact) {
+    selectCity(exact);
+  } else if (lastMatches.length === 1) {
+    selectCity(lastMatches[0]);
+  } else if (lastMatches.length > 1) {
+    sugBox.classList.add('show');
+  } else {
+    doSearch();
+  }
+});
+
+// Enter key triggers search
+input.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    searchBtn.click();
+  }
 });
 
 document.addEventListener('click', function(e) {
