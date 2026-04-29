@@ -23,7 +23,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const [totalRes, perMuniRes, recentRes, bySourceRes] = await Promise.all([
+    const [totalRes, perMuniRes, recentRes, bySourceRes, perMuniSourceRes] = await Promise.all([
       sql('SELECT COUNT(*) as total FROM apm_downloads'),
       sql(`SELECT pdf, municipio, COUNT(*) as count, MAX(created_at) as ultimo_acesso
            FROM apm_downloads GROUP BY pdf, municipio ORDER BY count DESC`),
@@ -31,6 +31,10 @@ export default async function handler(req, res) {
            FROM apm_downloads ORDER BY created_at DESC LIMIT 50`),
       sql(`SELECT COALESCE(source, 'email') as source, COUNT(*) as count
            FROM apm_downloads GROUP BY COALESCE(source, 'email')`),
+      sql(`SELECT pdf, municipio, COALESCE(source, 'email') as source,
+           COUNT(*) as count, MAX(created_at) as ultimo_acesso
+           FROM apm_downloads GROUP BY pdf, municipio, COALESCE(source, 'email')
+           ORDER BY count DESC`),
     ]);
 
     const total = parseInt(totalRes.rows?.[0]?.total || '0');
@@ -53,12 +57,25 @@ export default async function handler(req, res) {
       porFonte[r.source] = parseInt(r.count);
     });
 
+    const municipiosPorFonte = {};
+    (perMuniSourceRes.rows || []).forEach(r => {
+      const src = r.source;
+      if (!municipiosPorFonte[src]) municipiosPorFonte[src] = [];
+      municipiosPorFonte[src].push({
+        nome: r.municipio,
+        pdf: r.pdf,
+        count: parseInt(r.count),
+        ultimo_acesso: r.ultimo_acesso,
+      });
+    });
+
     res.status(200).json({
       total_downloads: total,
       municipios_com_download: comDownload,
       municipios_total: 645,
       taxa_abertura: ((comDownload / 645) * 100).toFixed(1),
       municipios: municipios,
+      municipios_por_fonte: municipiosPorFonte,
       ultimos_50: recent,
       por_fonte: porFonte,
       atualizado_em: new Date().toISOString(),
