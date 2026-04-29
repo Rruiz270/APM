@@ -1,6 +1,7 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/fundeb-sp/index.html" }
+    { "source": "/", "destination": "/fundeb-sp/index.html" },
+    { "source": "/whatsapp", "destination": "/whatsapp/index.html" }
   ],
   "headers": [
     {

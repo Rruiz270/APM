@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-  const { pdf } = req.query;
+  const { pdf, source } = req.query;
 
   if (!pdf || !pdf.endsWith('.pdf')) {
     return res.status(400).json({ error: 'Parâmetro pdf inválido' });
@@ -21,8 +21,8 @@ export default async function handler(req, res) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          query: 'INSERT INTO apm_downloads (pdf, municipio, ip, user_agent) VALUES ($1, $2, $3, $4)',
-          params: [pdf, municipio, ip, ua],
+          query: 'INSERT INTO apm_downloads (pdf, municipio, ip, user_agent, source) VALUES ($1, $2, $3, $4, $5)',
+          params: [pdf, municipio, ip, ua, source || 'direct'],
         }),
       });
     } catch (e) {

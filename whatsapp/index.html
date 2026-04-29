@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APM | Diagn&oacute;stico FUNDEB &mdash; Seu Munic&iacute;pio</title>
+<meta name="description" content="Diagn&oacute;stico exclusivo FUNDEB 2026 para o seu munic&iacute;pio. Parceria APM + Instituto i10.">
+<link rel="icon" href="../fundeb-sp/apm-logo-pill-web.png" type="image/png">
+<meta property="og:title" content="APM | Diagn&oacute;stico FUNDEB do seu Munic&iacute;pio">
+<meta property="og:description" content="A APM e o Instituto i10 identificaram R$ 13 bilh&otilde;es em recursos FUNDEB n&atilde;o captados. Veja o diagn&oacute;stico do seu munic&iacute;pio.">
+<meta property="og:image" content="../fundeb-sp/apm-logo-pill-web.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F4F7FA; --card: #fff; --border: #DDE3EB;
+  --text: #1A3A3A; --text2: #4A5568; --text3: #718096;
+  --teal: #0D7377; --teal-dark: #0A5C5F; --teal-light: #11998E;
+  --green-apm: #1B8A5C; --green-dark: #0F6B3A;
+  --accent: #00E5A0; --accent2: #00C88A;
+  --red: #D4553A; --orange: #E8A838;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: #1A202C; line-height: 1.6; }
+
+.hero {
+  background: linear-gradient(160deg, #0A5C5F 0%, #0D7377 35%, #11998E 70%, #1B8A5C 100%);
+  color: #fff; padding: 32px 20px 60px; position: relative; overflow: hidden; text-align: center;
+}
+.hero::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60'%3E%3Cpath d='M0,60 L60,25 L120,60' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1.5'/%3E%3C/svg%3E") repeat;
+  background-size: 120px 60px; pointer-events: none;
+}
+.hero-content { position: relative; z-index: 2; max-width: 600px; margin: 0 auto; }
+.hero-logos { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 20px; }
+.hero-logos img { height: 44px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2)); }
+.hero-logos .partner { font-size: 0.72rem; opacity: 0.7; border-left: 1px solid rgba(255,255,255,0.3); padding-left: 12px; text-align: left; }
+.hero-logos .partner b { display: block; opacity: 1; font-size: 0.8rem; }
+.tagline {
+  display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+  padding: 4px 18px; border-radius: 50px; font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 14px;
+}
+.hero h1 { font-family: 'Source Serif 4', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
+.hero .subtitle { font-size: 0.9rem; opacity: 0.8; font-weight: 300; }
+
+/* Wave transition */
+.wave-transition {
+  margin-top: -40px; position: relative; z-index: 5;
+}
+.wave-transition svg { display: block; width: 100%; height: 40px; }
+
+/* Loading state */
+.loading { text-align: center; padding: 60px 20px; }
+.loading .spinner {
+  width: 40px; height: 40px; border: 3px solid var(--border);
+  border-top-color: var(--teal); border-radius: 50%;
+  animation: spin 0.8s linear infinite; margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Error state */
+.error-state { text-align: center; padding: 60px 20px; }
+.error-state h2 { color: var(--red); margin-bottom: 8px; }
+
+/* City card */
+.container { max-width: 640px; margin: 0 auto; padding: 0 16px; }
+.city-card {
+  background: var(--card); border-radius: 20px; margin-top: -30px;
+  position: relative; z-index: 10;
+  box-shadow: 0 12px 48px rgba(10,92,95,0.15);
+  border: 1px solid rgba(13,115,119,0.1); overflow: hidden;
+}
+.city-header {
+  background: linear-gradient(135deg, #0A5C5F 0%, #0D7377 40%, #11998E 100%);
+  color: #fff; padding: 24px; text-align: center; position: relative;
+}
+.city-header::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60'%3E%3Cpath d='M0,60 L60,25 L120,60' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1.5'/%3E%3C/svg%3E") repeat;
+  background-size: 120px 60px; pointer-events: none;
+}
+.city-header h2 { font-family: 'Source Serif 4', serif; font-size: 1.5rem; font-weight: 700; position: relative; margin-bottom: 4px; }
+.city-header .city-sub { font-size: 0.8rem; opacity: 0.8; position: relative; }
+.city-body { padding: 24px; }
+
+/* Metrics grid */
+.metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.metric {
+  background: var(--bg); border-radius: 12px; padding: 14px; text-align: center;
+  border: 1px solid var(--border);
+}
+.metric .label { font-size: 0.68rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
+.metric .val { font-size: 1.2rem; font-weight: 700; margin-top: 2px; }
+.metric .val.green { color: var(--teal); }
+.metric .val.orange { color: var(--orange); }
+.metric .val.red { color: var(--red); }
+.metric.full { grid-column: 1 / -1; }
+.metric.full .val { font-size: 1.8rem; color: var(--teal); }
+
+/* Tiers breakdown */
+.tiers { margin-bottom: 20px; }
+.tiers h3 { font-size: 0.85rem; color: var(--teal-dark); font-weight: 700; margin-bottom: 12px; }
+.tier-row {
+  display: flex; align-items: center; gap: 8px; padding: 8px 0;
+  border-bottom: 1px solid #f7fafc; font-size: 0.82rem;
+}
+.tier-row:last-child { border-bottom: none; }
+.tier-name { width: 140px; font-weight: 500; color: var(--text2); flex-shrink: 0; }
+.tier-bar-outer { flex: 1; height: 20px; background: #edf2f7; border-radius: 50px; overflow: hidden; }
+.tier-bar-fill { height: 100%; border-radius: 50px; transition: width 0.8s ease; min-width: 2px; }
+.tier-val { width: 80px; text-align: right; font-weight: 600; font-size: 0.82rem; flex-shrink: 0; }
+.tier-total {
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 2px solid var(--border); padding-top: 10px; margin-top: 6px;
+  font-weight: 700; font-size: 0.95rem; color: var(--teal);
+}
+
+/* VAAR alert */
+.vaar-alert {
+  background: #fff5f5; border: 2px solid #fc8181; border-radius: 12px;
+  padding: 14px; margin-bottom: 20px; display: none;
+}
+.vaar-alert.show { display: block; }
+.vaar-alert h4 { color: var(--red); font-size: 0.85rem; margin-bottom: 4px; }
+.vaar-alert p { font-size: 0.78rem; color: #742a2a; }
+
+/* Strategies */
+.strategies { margin-bottom: 24px; }
+.strategies h3 { font-size: 0.85rem; color: var(--teal-dark); font-weight: 700; margin-bottom: 12px; }
+.strat-item {
+  padding: 10px 0; border-bottom: 1px solid #f7fafc; font-size: 0.82rem;
+}
+.strat-badge {
+  display: inline-block; padding: 1px 10px; border-radius: 50px;
+  font-size: 0.65rem; font-weight: 700; margin-right: 4px;
+}
+.strat-badge-alto { background: rgba(13,115,119,0.1); color: var(--teal); }
+.strat-badge-medio { background: rgba(232,168,56,0.1); color: var(--orange); }
+.strat-badge-baixo { background: rgba(113,128,150,0.1); color: var(--text3); }
+.strat-tier { background: #edf2f7; padding: 1px 8px; border-radius: 50px; font-size: 0.65rem; color: var(--text2); margin-right: 4px; }
+.strat-desc { color: var(--text2); font-size: 0.75rem; margin-top: 2px; }
+
+/* Download CTA */
+.download-cta {
+  display: block; width: 100%; padding: 18px; border: none; border-radius: 14px;
+  background: linear-gradient(135deg, #0D7377, #1B8A5C);
+  color: #fff; font-size: 1.1rem; font-weight: 700; font-family: inherit;
+  cursor: pointer; text-align: center; text-decoration: none;
+  box-shadow: 0 4px 20px rgba(13,115,119,0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative; overflow: hidden;
+}
+.download-cta::before {
+  content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  animation: shimmer 2s infinite;
+}
+@keyframes shimmer { to { left: 100%; } }
+.download-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(13,115,119,0.4); }
+.download-cta:active { transform: translateY(0); }
+.download-icon { font-size: 1.3rem; margin-right: 8px; vertical-align: middle; }
+
+/* Footer */
+.footer {
+  text-align: center; padding: 30px 20px; font-size: 0.75rem; color: var(--text3);
+}
+.footer img { height: 32px; margin-bottom: 8px; }
+.footer a { color: var(--teal); text-decoration: none; }
+
+/* CTA section */
+.cta-section {
+  background: linear-gradient(135deg, #0A5C5F 0%, #0D7377 40%, #11998E 100%);
+  border-radius: 16px; position: relative; overflow: hidden;
+  padding: 28px; text-align: center; color: #fff; margin: 24px 0;
+}
+.cta-section::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60'%3E%3Cpath d='M0,60 L60,25 L120,60' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1.5'/%3E%3C/svg%3E") repeat;
+  background-size: 120px 60px; pointer-events: none;
+}
+.cta-section h3 { font-family: 'Source Serif 4', serif; font-size: 1.1rem; margin-bottom: 8px; position: relative; }
+.cta-section p { opacity: 0.85; font-size: 0.82rem; position: relative; max-width: 500px; margin: 0 auto; }
+.cta-features { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 14px; position: relative; }
+.cta-feat {
+  background: rgba(255,255,255,0.12); padding: 4px 14px; border-radius: 50px;
+  font-size: 0.72rem; border: 1px solid rgba(255,255,255,0.18);
+}
+
+@media (max-width: 400px) {
+  .hero h1 { font-size: 1.3rem; }
+  .metrics { grid-template-columns: 1fr; }
+  .tier-name { width: 100px; font-size: 0.75rem; }
+  .tier-val { width: 65px; font-size: 0.75rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-logos">
+      <img src="../fundeb-sp/apm-logo-pill-web.png" alt="APM">
+      <div class="partner"><b>Parceria t&eacute;cnica</b>Instituto i10</div>
+    </div>
+    <div class="tagline">A For&ccedil;a do Municipalismo</div>
+    <h1>Diagn&oacute;stico FUNDEB 2026</h1>
+    <p class="subtitle">Relat&oacute;rio exclusivo para o seu munic&iacute;pio</p>
+  </div>
+</div>
+
+<div class="container">
+  <div id="loadingState" class="loading">
+    <div class="spinner"></div>
+    <p style="color:var(--text2)">Carregando diagn&oacute;stico...</p>
+  </div>
+
+  <div id="errorState" class="error-state" style="display:none">
+    <h2>Munic&iacute;pio n&atilde;o encontrado</h2>
+    <p style="color:var(--text2)">O link pode estar incorreto. Entre em contato com a APM para obter o link correto.</p>
+  </div>
+
+  <div id="cityContent" style="display:none">
+    <div class="city-card">
+      <div class="city-header">
+        <h2 id="cityName"></h2>
+        <div class="city-sub" id="citySub"></div>
+      </div>
+      <div class="city-body">
+        <div class="metrics">
+          <div class="metric full">
+            <div class="label">Potencial N&atilde;o Captado</div>
+            <div class="val green" id="potTotal"></div>
+          </div>
+          <div class="metric">
+            <div class="label">Receita Atual</div>
+            <div class="val" id="recAtual"></div>
+          </div>
+          <div class="metric">
+            <div class="label">Ganho Poss&iacute;vel</div>
+            <div class="val green" id="pctGanho"></div>
+          </div>
+          <div class="metric">
+            <div class="label">Matr&iacute;culas</div>
+            <div class="val" id="matriculas"></div>
+          </div>
+          <div class="metric">
+            <div class="label">Recebe VAAR</div>
+            <div class="val" id="recebeVaar"></div>
+          </div>
+        </div>
+
+        <div class="vaar-alert" id="vaarAlert">
+          <h4>&#9888; Seu munic&iacute;pio N&Atilde;O recebe VAAR</h4>
+          <p id="vaarAlertText"></p>
+        </div>
+
+        <div class="tiers" id="tiersSection">
+          <h3>Decomposi&ccedil;&atilde;o do Potencial</h3>
+          <div id="tiersContent"></div>
+        </div>
+
+        <div class="strategies" id="stratsSection">
+          <h3>Recomenda&ccedil;&otilde;es Priorizadas</h3>
+          <div id="stratsContent"></div>
+        </div>
+
+        <a id="downloadBtn" class="download-cta" href="#">
+          <span class="download-icon">&#128196;</span>
+          Baixar Relat&oacute;rio Completo
+        </a>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <h3>Quer captar esses recursos?</h3>
+      <p>A APM, em parceria com o Instituto i10, oferece consultoria para transformar este diagn&oacute;stico em recursos reais.</p>
+      <div class="cta-features">
+        <div class="cta-feat">Plataforma de Intelig&ecirc;ncia</div>
+        <div class="cta-feat">Compliance VAAR</div>
+        <div class="cta-feat">Busca Ativa AEE</div>
+        <div class="cta-feat">BNCC Computa&ccedil;&atilde;o</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <img src="../fundeb-sp/apm-logo-pill-web.png" alt="APM"><br>
+  <b>Associa&ccedil;&atilde;o Paulista de Munic&iacute;pios</b> &mdash; Parceria t&eacute;cnica: Instituto i10<br>
+  <span style="opacity:0.6;font-size:0.7rem">Dados: MEC/FNDE FUNDEB 2026 (par&acirc;metros definitivos)</span><br>
+  <a href="../fundeb-sp/" style="margin-top:8px;display:inline-block;font-size:0.8rem">Ver diagn&oacute;stico de todos os munic&iacute;pios &rarr;</a>
+</div>
+
+<script>
+function fmtBRL(v) {
+  if (!v && v !== 0) return '-';
+  if (Math.abs(v) >= 1e6) return 'R$ ' + (v/1e6).toFixed(1).replace('.',',') + 'M';
+  return 'R$ ' + v.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+function fmtN(v) { return v ? v.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '0'; }
+function fmtPct(v) { return v ? v.toFixed(1).replace('.',',') + '%' : '0%'; }
+
+const params = new URLSearchParams(window.location.search);
+const mParam = params.get('m');
+
+if (!mParam) {
+  document.getElementById('loadingState').style.display = 'none';
+  document.getElementById('errorState').style.display = 'block';
+} else {
+  fetch('../fundeb-sp/data.json')
+    .then(r => r.json())
+    .then(raw => {
+      const DATA = raw.municipios;
+      const ordem = parseInt(mParam, 10);
+      const d = DATA.find(x => x.ordem === ordem);
+
+      document.getElementById('loadingState').style.display = 'none';
+
+      if (!d) {
+        document.getElementById('errorState').style.display = 'block';
+        return;
+      }
+
+      const p = d.potencial;
+      const rec = p.recursos_totais || d.rec_intra;
+
+      document.title = 'APM | Diagnóstico FUNDEB — ' + d.nome;
+
+      document.getElementById('cityName').textContent = d.nome;
+      document.getElementById('citySub').textContent = fmtN(d.tot_mat) + ' matrículas | Município #' + d.ordem + ' de 645';
+      document.getElementById('potTotal').textContent = fmtBRL(p.pot_total_novo);
+      document.getElementById('recAtual').textContent = fmtBRL(rec);
+      document.getElementById('pctGanho').textContent = '+' + fmtPct(p.pct_pot_total);
+      document.getElementById('matriculas').textContent = fmtN(d.tot_mat);
+
+      const vaarEl = document.getElementById('recebeVaar');
+      if (p.t5.recebe_vaar) {
+        vaarEl.textContent = 'SIM';
+        vaarEl.classList.add('green');
+      } else {
+        vaarEl.textContent = 'NÃO';
+        vaarEl.classList.add('red');
+        document.getElementById('vaarAlert').classList.add('show');
+        document.getElementById('vaarAlertText').textContent =
+          d.nome + ' não recebe complementação VAAR (R$ 7,5 bi disponíveis). Potencial: ' +
+          fmtBRL(p.t5.vaar_potencial) + '/ano se cumprir as 5 condicionalidades.';
+      }
+
+      // Tiers
+      const tiers = [
+        { name: 'Expansão VAAF', val: p.pot_t1, color: '#0D7377' },
+        { name: 'Conv. Integral', val: p.pot_t2, color: '#0E8B7D' },
+        { name: 'AEE Dupla Mat.', val: p.pot_t3, color: '#11998E' },
+        { name: 'Reclass. Campo', val: p.pot_t4, color: '#1B8A5C' },
+        { name: 'VAAR Federal', val: p.pot_t5_vaar, color: '#2ECC71' },
+        { name: 'EC 135 + BNCC', val: p.pot_t6_4pct || 0, color: '#E8A838' },
+      ].filter(t => t.val > 0);
+      const maxT = Math.max(...tiers.map(t => t.val), 1);
+
+      document.getElementById('tiersContent').innerHTML = tiers.map(t => `
+        <div class="tier-row">
+          <div class="tier-name">${t.name}</div>
+          <div class="tier-bar-outer"><div class="tier-bar-fill" style="width:${Math.max(2,t.val/maxT*100)}%;background:${t.color}"></div></div>
+          <div class="tier-val" style="color:${t.color}">${fmtBRL(t.val)}</div>
+        </div>`).join('') +
+        `<div class="tier-total"><span>TOTAL</span><span>${fmtBRL(p.pot_total_novo)}</span></div>`;
+
+      // Strategies
+      const strats = (p.estrategias || []).slice(0, 4);
+      if (strats.length) {
+        document.getElementById('stratsContent').innerHTML = strats.map(e => `
+          <div class="strat-item">
+            <span class="strat-badge strat-badge-${e.impacto}">${e.impacto.toUpperCase()}</span>
+            <span class="strat-tier">${e.tier}</span>
+            <b>${e.titulo}</b>
+            <div class="strat-desc">${e.descricao}</div>
+          </div>`).join('');
+      } else {
+        document.getElementById('stratsSection').style.display = 'none';
+      }
+
+      // Download button
+      const pdfFile = String(d.ordem).padStart(3, '0') + '_' + d.nome.replace(/ /g, '_') + '.pdf';
+      const downloadUrl = '/api/download?source=whatsapp&pdf=' + encodeURIComponent(pdfFile);
+      document.getElementById('downloadBtn').href = downloadUrl;
+
+      document.getElementById('cityContent').style.display = 'block';
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('errorState').style.display = 'block';
+    });
+}
+</script>
+
+</body>
+</html>
