@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>APM | Diagn&oacute;stico FUNDEB &mdash; Seu Munic&iacute;pio</title>
 <meta name="description" content="Diagn&oacute;stico exclusivo FUNDEB 2026 para o seu munic&iacute;pio. Parceria APM + Instituto i10.">
-<link rel="icon" href="../fundeb-sp/apm-logo-pill-web.png" type="image/png">
+<link rel="icon" href="https://apm-fundeb-sp.vercel.app/fundeb-sp/apm-logo-pill-web.png" type="image/png">
 <meta property="og:title" content="APM | Diagn&oacute;stico FUNDEB do seu Munic&iacute;pio">
 <meta property="og:description" content="A APM e o Instituto i10 identificaram R$ 13 bilh&otilde;es em recursos FUNDEB n&atilde;o captados. Veja o diagn&oacute;stico do seu munic&iacute;pio.">
 <meta property="og:image" content="https://apm-fundeb-sp.vercel.app/fundeb-sp/apm-logo-pill-web.png">
@@ -200,7 +200,7 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); c
 <div class="hero">
   <div class="hero-content">
     <div class="hero-logos">
-      <img src="../fundeb-sp/apm-logo-pill-web.png" alt="APM">
+      <img src="https://apm-fundeb-sp.vercel.app/fundeb-sp/apm-logo-pill-web.png" alt="APM">
       <div class="partner"><b>Parceria t&eacute;cnica</b>Instituto i10</div>
     </div>
     <div class="tagline">A For&ccedil;a do Municipalismo</div>
@@ -286,10 +286,10 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); c
 </div>
 
 <div class="footer">
-  <img src="../fundeb-sp/apm-logo-pill-web.png" alt="APM"><br>
+  <img src="https://apm-fundeb-sp.vercel.app/fundeb-sp/apm-logo-pill-web.png" alt="APM"><br>
   <b>Associa&ccedil;&atilde;o Paulista de Munic&iacute;pios</b> &mdash; Parceria t&eacute;cnica: Instituto i10<br>
   <span style="opacity:0.6;font-size:0.7rem">Dados: MEC/FNDE FUNDEB 2026 (par&acirc;metros definitivos)</span><br>
-  <a href="../fundeb-sp/" style="margin-top:8px;display:inline-block;font-size:0.8rem">Ver diagn&oacute;stico de todos os munic&iacute;pios &rarr;</a>
+  <a href="https://apm-fundeb-sp.vercel.app/" style="margin-top:8px;display:inline-block;font-size:0.8rem">Ver diagn&oacute;stico de todos os munic&iacute;pios &rarr;</a>
 </div>
 
 <script>
@@ -308,12 +308,11 @@ if (!mParam) {
   document.getElementById('loadingState').style.display = 'none';
   document.getElementById('errorState').style.display = 'block';
 } else {
-  fetch('../fundeb-sp/data.json')
+  fetch('data-lite.json')
     .then(r => r.json())
-    .then(raw => {
-      const DATA = raw.municipios;
+    .then(DATA => {
       const ordem = parseInt(mParam, 10);
-      const d = DATA.find(x => x.ordem === ordem);
+      const d = DATA[ordem];
 
       document.getElementById('loadingState').style.display = 'none';
 
@@ -322,20 +321,17 @@ if (!mParam) {
         return;
       }
 
-      const p = d.potencial;
-      const rec = p.recursos_totais || d.rec_intra;
+      document.title = 'APM | Diagnóstico FUNDEB — ' + d.n;
 
-      document.title = 'APM | Diagnóstico FUNDEB — ' + d.nome;
-
-      document.getElementById('cityName').textContent = d.nome;
-      document.getElementById('citySub').textContent = fmtN(d.tot_mat) + ' matrículas | Município #' + d.ordem + ' de 645';
-      document.getElementById('potTotal').textContent = fmtBRL(p.pot_total_novo);
-      document.getElementById('recAtual').textContent = fmtBRL(rec);
-      document.getElementById('pctGanho').textContent = '+' + fmtPct(p.pct_pot_total);
-      document.getElementById('matriculas').textContent = fmtN(d.tot_mat);
+      document.getElementById('cityName').textContent = d.n;
+      document.getElementById('citySub').textContent = fmtN(d.mat) + ' matrículas | Município #' + ordem + ' de 645';
+      document.getElementById('potTotal').textContent = fmtBRL(d.pot);
+      document.getElementById('recAtual').textContent = fmtBRL(d.rec);
+      document.getElementById('pctGanho').textContent = '+' + fmtPct(d.pct);
+      document.getElementById('matriculas').textContent = fmtN(d.mat);
 
       const vaarEl = document.getElementById('recebeVaar');
-      if (p.t5.recebe_vaar) {
+      if (d.vaar) {
         vaarEl.textContent = 'SIM';
         vaarEl.classList.add('green');
       } else {
@@ -343,18 +339,17 @@ if (!mParam) {
         vaarEl.classList.add('red');
         document.getElementById('vaarAlert').classList.add('show');
         document.getElementById('vaarAlertText').textContent =
-          d.nome + ' não recebe complementação VAAR (R$ 7,5 bi disponíveis). Potencial: ' +
-          fmtBRL(p.t5.vaar_potencial) + '/ano se cumprir as 5 condicionalidades.';
+          d.n + ' não recebe complementação VAAR (R$ 7,5 bi disponíveis). Potencial: ' +
+          fmtBRL(d.vaar_pot) + '/ano se cumprir as 5 condicionalidades.';
       }
 
-      // Tiers
       const tiers = [
-        { name: 'Expansão VAAF', val: p.pot_t1, color: '#0D7377' },
-        { name: 'Conv. Integral', val: p.pot_t2, color: '#0E8B7D' },
-        { name: 'AEE Dupla Mat.', val: p.pot_t3, color: '#11998E' },
-        { name: 'Reclass. Campo', val: p.pot_t4, color: '#1B8A5C' },
-        { name: 'VAAR Federal', val: p.pot_t5_vaar, color: '#2ECC71' },
-        { name: 'EC 135 + BNCC', val: p.pot_t6_4pct || 0, color: '#E8A838' },
+        { name: 'Expansão VAAF', val: d.t1, color: '#0D7377' },
+        { name: 'Conv. Integral', val: d.t2, color: '#0E8B7D' },
+        { name: 'AEE Dupla Mat.', val: d.t3, color: '#11998E' },
+        { name: 'Reclass. Campo', val: d.t4, color: '#1B8A5C' },
+        { name: 'VAAR Federal', val: d.t5, color: '#2ECC71' },
+        { name: 'EC 135 + BNCC', val: d.t6 || 0, color: '#E8A838' },
       ].filter(t => t.val > 0);
       const maxT = Math.max(...tiers.map(t => t.val), 1);
 
@@ -364,25 +359,23 @@ if (!mParam) {
           <div class="tier-bar-outer"><div class="tier-bar-fill" style="width:${Math.max(2,t.val/maxT*100)}%;background:${t.color}"></div></div>
           <div class="tier-val" style="color:${t.color}">${fmtBRL(t.val)}</div>
         </div>`).join('') +
-        `<div class="tier-total"><span>TOTAL</span><span>${fmtBRL(p.pot_total_novo)}</span></div>`;
+        `<div class="tier-total"><span>TOTAL</span><span>${fmtBRL(d.pot)}</span></div>`;
 
-      // Strategies
-      const strats = (p.estrategias || []).slice(0, 4);
+      const strats = d.strats || [];
       if (strats.length) {
         document.getElementById('stratsContent').innerHTML = strats.map(e => `
           <div class="strat-item">
-            <span class="strat-badge strat-badge-${e.impacto}">${e.impacto.toUpperCase()}</span>
+            <span class="strat-badge strat-badge-${e.i}">${e.i.toUpperCase()}</span>
             <span class="strat-tier">${e.tier}</span>
-            <b>${e.titulo}</b>
-            <div class="strat-desc">${e.descricao}</div>
+            <b>${e.t}</b>
+            <div class="strat-desc">${e.d}</div>
           </div>`).join('');
       } else {
         document.getElementById('stratsSection').style.display = 'none';
       }
 
-      // Download button
-      const pdfFile = String(d.ordem).padStart(3, '0') + '_' + d.nome.replace(/ /g, '_') + '.pdf';
-      const downloadUrl = '/api/download?source=whatsapp&pdf=' + encodeURIComponent(pdfFile);
+      const pdfFile = String(ordem).padStart(3, '0') + '_' + d.n.replace(/ /g, '_') + '.pdf';
+      const downloadUrl = 'https://apm-fundeb-sp.vercel.app/api/download?source=whatsapp&pdf=' + encodeURIComponent(pdfFile);
       document.getElementById('downloadBtn').href = downloadUrl;
 
       document.getElementById('cityContent').style.display = 'block';
