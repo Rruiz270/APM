@@ -293,7 +293,7 @@ function fmtBRL(v) {
 }
 function fmtN(v) { return v ? v.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '0'; }
 function fmtPct(v) { return v ? v.toFixed(1).replace('.',',') + '%' : '0%'; }
-function norm(s) { return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+function norm(s) { return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
 
 var input = document.getElementById('searchInput');
 var sugBox = document.getElementById('suggestions');
@@ -400,7 +400,7 @@ var mParam = params.get('m');
 
 document.getElementById('loadingState').style.display = 'block';
 
-fetch('https://apm-fundeb-sp.vercel.app/whatsapp/data-lite.json')
+fetch('https://apm-seven.vercel.app/whatsapp/data-lite.json')
   .then(function(r) { return r.json(); })
   .then(function(raw) {
     DATA = raw;
