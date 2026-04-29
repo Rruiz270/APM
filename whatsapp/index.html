@@ -308,7 +308,7 @@ if (!mParam) {
   document.getElementById('loadingState').style.display = 'none';
   document.getElementById('errorState').style.display = 'block';
 } else {
-  fetch('data-lite.json')
+  fetch('https://apm-fundeb-sp.vercel.app/whatsapp/data-lite.json')
     .then(r => r.json())
     .then(DATA => {
       const ordem = parseInt(mParam, 10);
