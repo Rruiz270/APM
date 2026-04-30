@@ -28,7 +28,7 @@ export default async function handler(req, res) {
       sql(`SELECT pdf, municipio, COUNT(*) as count, MAX(created_at) as ultimo_acesso
            FROM apm_downloads GROUP BY pdf, municipio ORDER BY count DESC`),
       sql(`SELECT pdf, municipio, ip, created_at as ts, source
-           FROM apm_downloads ORDER BY created_at DESC LIMIT 50`),
+           FROM apm_downloads ORDER BY created_at DESC LIMIT 100`),
       sql(`SELECT COALESCE(source, 'email') as source, COUNT(*) as count
            FROM apm_downloads GROUP BY COALESCE(source, 'email')`),
       sql(`SELECT pdf, municipio, COALESCE(source, 'email') as source,
